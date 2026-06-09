@@ -1,5 +1,6 @@
-"""IntentRouter - maps typed commands to responses."""
+"""IntentRouter - maps typed/voice commands to cockpit-assistant responses."""
 
+from . import number_words as nw
 from .state_store import StateStore
 from . import unit_conversions as uc
 
@@ -37,6 +38,8 @@ class IntentRouter:
             return self._countermeasures()
         if cmd == "fuel":
             return self._fuel()
+        if cmd in ("warnings", "warning"):
+            return self._warnings()
         return f"Unknown command: {cmd}. Type help."
 
     def _offline(self) -> bool:
@@ -80,29 +83,28 @@ class IntentRouter:
         if self._offline():
             return "Telemetry offline."
         gear = self._state.get("systems", "gear_state") or "unknown"
-        return f"Gear {gear}."
+        display = {"extended": "down", "retracted": "up", "extending": "extending", "retracting": "retracting"}
+        return f"Gear {display.get(gear, gear)}."
 
     def _weapon(self) -> str:
         if self._offline():
             return "Telemetry offline."
         w = self._state.get("weapons") or {}
-        name = w.get("selected_weapon", "unknown")
-        count = w.get("selected_weapon_count", -1)
+        name = w.get("selected_weapon", "none")
+        if name == "none" or not name:
+            arm = "on" if w.get("master_arm") else "off"
+            return f"No weapon selected. Master arm {arm}."
+        count = w.get("selected_weapon_count", 0)
         arm = "on" if w.get("master_arm") else "off"
-        count_str = f"{count} remaining" if count >= 0 else ""
-        parts = [f"Selected {name}."]
-        if count_str:
-            parts.append(f"{count_str}.")
-        parts.append(f"Master arm {arm}.")
-        return " ".join(parts)
+        return f"Selected {name}, {nw.number_to_words(count)} remaining. Master arm {arm}."
 
     def _countermeasures(self) -> str:
         if self._offline():
             return "Telemetry offline."
         w = self._state.get("weapons") or {}
-        flares = w.get("flares", -1)
-        chaff = w.get("chaff", -1)
-        return f"Flares {flares}. Chaff {chaff}."
+        flares = w.get("flares", 0)
+        chaff = w.get("chaff", 0)
+        return f"Flares {nw.number_to_words(flares)}, chaff {nw.number_to_words(chaff)}."
 
     def _fuel(self) -> str:
         if self._offline():
@@ -112,28 +114,42 @@ class IntentRouter:
             return f"Fuel {uc.format_percent(fuel)}."
         return "Fuel data not available."
 
+    def _warnings(self) -> str:
+        if self._offline():
+            return "Telemetry offline."
+        warnings = self._state.get("warnings") or {}
+        active = []
+        if warnings.get("missile_warning"):
+            active.append("missile")
+        if warnings.get("rwr_spike"):
+            active.append("RWR spike")
+        if warnings.get("engine_warning"):
+            active.append("engine")
+        if warnings.get("fuel_warning"):
+            active.append("low fuel")
+        if not active:
+            return "No warnings."
+        return "Warning: " + ", ".join(active) + "."
+
     def _status(self) -> str:
         if self._offline():
             return "Telemetry offline."
-        parts = []
-        parts.append(self._altitude())
-        parts.append(self._speed())
-        parts.append(self._engines())
-        gear = self._state.get("systems", "gear_state") or "unknown"
-        parts.append(f"Gear {gear}.")
+        parts = [
+            self._altitude(),
+            self._speed(),
+            self._engines(),
+            self._gear(),
+        ]
         w = self._state.get("weapons") or {}
         arm = "on" if w.get("master_arm") else "off"
         parts.append(f"Master arm {arm}.")
-        name = w.get("selected_weapon", "unknown")
-        count = w.get("selected_weapon_count", -1)
-        if count >= 0:
-            parts.append(f"Selected {name}, {count} remaining.")
-        else:
-            parts.append(f"Selected {name}.")
+        fuel = self._state.get("systems", "fuel_percent")
+        if fuel is not None:
+            parts.append(f"Fuel {uc.format_percent(fuel)}.")
         return " ".join(parts)
 
     def _help(self) -> str:
         return (
             "Commands: altitude, speed, heading, engines, apu, gear, "
-            "weapon, countermeasures, fuel, status, help, quit."
+            "weapon, countermeasures, fuel, warnings, status, help, quit."
         )

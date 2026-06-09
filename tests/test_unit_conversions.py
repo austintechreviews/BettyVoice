@@ -25,14 +25,14 @@ def test_ms_to_fpm():
 
 
 def test_format_feet():
-    assert format_feet(3048.0) == "10000 feet"
+    assert format_feet(3048.0) == "ten thousand feet"
 
 
 def test_format_knots():
-    assert format_knots(216.0) == "420 knots"
+    assert format_knots(216.0) == "four hundred twenty knots"
 
 
 def test_format_heading():
-    assert format_heading(270.0) == "270"
-    assert format_heading(0.0) == "000"
-    assert format_heading(359.5) == "360"
+    assert format_heading(270.0) == "two seven zero"
+    assert format_heading(0.0) == "zero"
+    assert format_heading(359.5) == "three six zero"

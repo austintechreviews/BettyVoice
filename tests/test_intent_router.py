@@ -19,6 +19,7 @@ def make_online_store():
                 "engine_1_enabled": True,
                 "engine_2_enabled": True,
                 "apu_enabled": False,
+                "fuel_percent": 85.0,
             },
             "weapons": {
                 "master_arm": True,
@@ -26,6 +27,12 @@ def make_online_store():
                 "selected_weapon_count": 2,
                 "chaff": 20,
                 "flares": 12,
+            },
+            "warnings": {
+                "missile_warning": False,
+                "rwr_spike": False,
+                "engine_warning": False,
+                "fuel_warning": False,
             },
         }
     )
@@ -35,20 +42,20 @@ def make_online_store():
 def test_altitude():
     router = IntentRouter(make_online_store())
     result = router.handle("altitude")
-    assert "10000 feet" in result
+    assert "ten thousand feet" in result
     assert "Radar altitude" in result
 
 
 def test_speed():
     router = IntentRouter(make_online_store())
     result = router.handle("speed")
-    assert "420 knots" in result
+    assert "four hundred twenty knots" in result
 
 
 def test_heading():
     router = IntentRouter(make_online_store())
     result = router.handle("heading")
-    assert "270" in result
+    assert "two seven zero" in result
 
 
 def test_engines():
@@ -60,22 +67,60 @@ def test_engines():
 def test_gear():
     router = IntentRouter(make_online_store())
     result = router.handle("gear")
-    assert "retracted" in result
+    assert "up" in result
 
 
 def test_weapon():
     router = IntentRouter(make_online_store())
     result = router.handle("weapon")
     assert "AIM-120C" in result
-    assert "2 remaining" in result
+    assert "two remaining" in result
     assert "Master arm on" in result
+
+
+def test_weapon_none():
+    store = make_online_store()
+    store.update({"weapons": {"master_arm": False, "selected_weapon": "none", "selected_weapon_count": 0}})
+    router = IntentRouter(store)
+    result = router.handle("weapon")
+    assert "No weapon selected" in result
 
 
 def test_countermeasures():
     router = IntentRouter(make_online_store())
     result = router.handle("countermeasures")
-    assert "Flares 12" in result
-    assert "Chaff 20" in result
+    assert "Flares twelve" in result
+    assert "chaff twenty" in result
+
+
+def test_fuel():
+    router = IntentRouter(make_online_store())
+    result = router.handle("fuel")
+    assert "eighty-five percent" in result
+
+
+def test_warnings_none():
+    router = IntentRouter(make_online_store())
+    result = router.handle("warnings")
+    assert "No warnings" in result
+
+
+def test_warnings_active():
+    store = make_online_store()
+    store.update({"warnings": {"missile_warning": True, "rwr_spike": True, "engine_warning": False, "fuel_warning": False}})
+    router = IntentRouter(store)
+    result = router.handle("warnings")
+    assert "missile" in result
+    assert "RWR spike" in result
+
+
+def test_status():
+    router = IntentRouter(make_online_store())
+    result = router.handle("status")
+    assert "feet" in result
+    assert "knots" in result
+    assert "online" in result
+    assert "up" in result or "retracted" in result
 
 
 def test_help():
@@ -87,6 +132,7 @@ def test_help():
 def test_quit():
     router = IntentRouter(make_online_store())
     assert router.handle("quit") == "__QUIT__"
+    assert router.handle("exit") == "__QUIT__"
 
 
 def test_unknown():

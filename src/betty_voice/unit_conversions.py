@@ -1,5 +1,7 @@
 """Unit conversions for BettyVoice."""
 
+from . import number_words as nw
+
 
 def metres_to_feet(metres: float) -> float:
     return metres * 3.28084
@@ -14,13 +16,13 @@ def ms_to_fpm(ms: float) -> float:
 
 
 def format_feet(metres: float) -> str:
-    feet = metres_to_feet(metres)
-    return f"{feet:.0f} feet"
+    feet = round(metres_to_feet(metres))
+    return f"{nw.number_to_words(feet)} feet"
 
 
 def format_knots(ms: float) -> str:
-    knots = ms_to_knots(ms)
-    return f"{knots:.0f} knots"
+    knots = round(ms_to_knots(ms))
+    return f"{nw.number_to_words(knots)} knots"
 
 
 def format_fpm(ms: float) -> str:
@@ -29,9 +31,9 @@ def format_fpm(ms: float) -> str:
 
 
 def format_heading(deg: float) -> str:
-    heading = deg % 360
-    return f"{heading:03.0f}"
+    heading = round(deg % 360)
+    return nw.number_to_words_digits(heading)
 
 
 def format_percent(value: float) -> str:
-    return f"{value:.0f} percent"
+    return f"{nw.number_to_words(round(value))} percent"

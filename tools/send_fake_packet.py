@@ -1,6 +1,15 @@
 #!/usr/bin/env python3
-"""Send fake telemetry packets for testing BettyVoice."""
+"""Send fake telemetry packets for testing BettyVoice.
 
+Supports built-in scenarios and field overrides.
+
+Usage:
+    python tools/send_fake_packet.py
+    python tools/send_fake_packet.py --scenario degraded --count 5 --rate 2
+    python tools/send_fake_packet.py --speed 300 --altitude 5000 --fuel 50
+"""
+
+import argparse
 import json
 import socket
 import time
@@ -8,8 +17,8 @@ import time
 HOST = "127.0.0.1"
 PORT = 47777
 
-PACKETS = [
-    {
+SCENARIOS = {
+    "default": {
         "schema": "betty.telemetry.v1",
         "timestamp_unix_ms": 0,
         "mode": "mp_safe",
@@ -59,7 +68,7 @@ PACKETS = [
             "fuel_warning": False,
         },
     },
-    {
+    "degraded": {
         "schema": "betty.telemetry.v1",
         "timestamp_unix_ms": 0,
         "mode": "mp_safe",
@@ -109,7 +118,7 @@ PACKETS = [
             "fuel_warning": False,
         },
     },
-    {
+    "helicopter": {
         "schema": "betty.telemetry.v1",
         "timestamp_unix_ms": 0,
         "mode": "mp_safe",
@@ -159,33 +168,104 @@ PACKETS = [
             "fuel_warning": True,
         },
     },
-]
+}
+
+
+def apply_overrides(packet: dict, args: argparse.Namespace) -> dict:
+    o = packet.setdefault("ownship", {})
+    s = packet.setdefault("systems", {})
+    w = packet.setdefault("weapons", {})
+
+    if args.speed is not None:
+        o["indicated_airspeed_ms"] = args.speed
+    if args.altitude is not None:
+        o["altitude_asl_m"] = args.altitude
+        o["radar_altitude_m"] = args.altitude
+    if args.fuel is not None:
+        s["fuel_percent"] = args.fuel
+    if args.weapon is not None:
+        w["selected_weapon"] = args.weapon
+    if args.chaff is not None:
+        w["chaff"] = args.chaff
+    if args.flares is not None:
+        w["flares"] = args.flares
+    if args.gear is not None:
+        s["gear_state"] = args.gear
+    if args.heading is not None:
+        o["heading_deg"] = args.heading
+    if args.master_arm is not None:
+        w["master_arm"] = args.master_arm
+
+    return packet
 
 
 def main():
-    interval = 0.5
-    count = 0
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    parser = argparse.ArgumentParser(
+        description="Send fake telemetry packets for BettyVoice"
+    )
+    parser.add_argument(
+        "--scenario",
+        choices=list(SCENARIOS),
+        default="default",
+        help="Built-in scenario to send (default: default)",
+    )
+    parser.add_argument(
+        "--count", type=int, default=0, help="Number of packets to send (0 = infinite)"
+    )
+    parser.add_argument(
+        "--rate", type=float, default=2.0, help="Send rate in Hz (default: 2.0)"
+    )
+    parser.add_argument("--speed", type=float, help="Override indicated airspeed (m/s)")
+    parser.add_argument("--altitude", type=float, help="Override altitude ASL (m)")
+    parser.add_argument("--fuel", type=float, help="Override fuel percent (0-100)")
+    parser.add_argument("--weapon", type=str, help="Override selected weapon name")
+    parser.add_argument("--chaff", type=int, help="Override chaff count")
+    parser.add_argument("--flares", type=int, help="Override flare count")
+    parser.add_argument("--gear", type=str, help="Override gear state")
+    parser.add_argument("--heading", type=float, help="Override heading (degrees)")
+    parser.add_argument(
+        "--master-arm",
+        dest="master_arm",
+        type=lambda x: x.lower() in ("true", "1", "yes"),
+        help="Override master arm (true/false)",
+    )
+    args = parser.parse_args()
 
-    print(f"Sending fake packets to {HOST}:{PORT}")
+    packet = SCENARIOS[args.scenario].copy()
+    packet = apply_overrides(packet, args)
+
+    interval = 1.0 / args.rate if args.rate > 0 else 0
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    count = 0
+
+    alt = packet["ownship"]["altitude_asl_m"]
+    spd = packet["ownship"]["indicated_airspeed_ms"]
+    hdg = packet["ownship"]["heading_deg"]
+    print(f"Sending scenario '{args.scenario}' to {HOST}:{PORT}")
+    print(f"  alt={alt:.0f}m  spd={spd:.0f}m/s  hdg={hdg}")
+    print(f"  rate={args.rate} Hz  count={'unlimited' if args.count == 0 else args.count}")
     print("Press Ctrl+C to stop.\n")
 
     try:
         while True:
-            packet = PACKETS[count % len(PACKETS)]
             packet["timestamp_unix_ms"] = int(time.time() * 1000)
             data = json.dumps(packet).encode("utf-8")
             sock.sendto(data, (HOST, PORT))
-            alt = packet["ownship"]["altitude_asl_m"]
-            spd = packet["ownship"]["indicated_airspeed_ms"]
-            hdg = packet["ownship"]["heading_deg"]
-            print(f"Sent packet {count + 1} - alt={alt}m spd={spd}m/s hdg={hdg}")
             count += 1
+            print(
+                f"Sent packet {count} - "
+                f"alt={packet['ownship']['altitude_asl_m']:.0f}m "
+                f"spd={packet['ownship']['indicated_airspeed_ms']:.0f}m/s "
+                f"hdg={packet['ownship']['heading_deg']:.0f}"
+            )
+            if 0 < args.count <= count:
+                break
             time.sleep(interval)
     except KeyboardInterrupt:
-        print("\nStopped.")
+        print()
     finally:
         sock.close()
+        print(f"Sent {count} packet(s).")
 
 
 if __name__ == "__main__":

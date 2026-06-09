@@ -1,9 +1,10 @@
-"""RuleEngine - detects changes and generates passive callouts."""
+"""RuleEngine - detects state changes and generates passive callouts."""
 
 import time
 from typing import List
 
 from .state_store import StateStore
+from . import unit_conversions as uc
 
 
 class RuleEngine:
@@ -15,7 +16,7 @@ class RuleEngine:
 
     def _can_announce(self, key: str, cooldown: float) -> bool:
         now = time.monotonic()
-        last = self._cooldowns.get(key, 0.0)
+        last = self._cooldowns.get(key, -cooldown)
         if now - last >= cooldown:
             self._cooldowns[key] = now
             return True
@@ -41,10 +42,8 @@ class RuleEngine:
         if warnings.get("missile_warning") and self._can_announce("missile", 5.0):
             callouts.append("Missile warning.")
 
-        if warnings.get("engine_warning") and self._can_announce(
-            "engine_warning", 15.0
-        ):
-            callouts.append("Engine warning.")
+        if warnings.get("rwr_spike") and self._can_announce("rwr_spike", 10.0):
+            callouts.append("RWR spike.")
 
         systems = self._state.get("systems") or {}
         if systems.get("engine_1_failed") and self._can_announce(
@@ -55,6 +54,15 @@ class RuleEngine:
             "engine_2_failed", 15.0
         ):
             callouts.append("Engine two failure.")
+
+        fuel = systems.get("fuel_percent")
+        if fuel is not None:
+            if fuel <= 5 and self._can_announce("fuel_emergency", 60.0):
+                callouts.append("Fuel emergency, five percent.")
+            elif fuel <= 15 and self._can_announce("fuel_critical", 60.0):
+                callouts.append("Fuel critical, fifteen percent.")
+            elif fuel <= 30 and self._can_announce("fuel_low", 60.0):
+                callouts.append("Fuel low, thirty percent.")
 
         weapons = self._state.get("weapons") or {}
         chaff = weapons.get("chaff", -1)
@@ -67,6 +75,19 @@ class RuleEngine:
             callouts.append("Chaff depleted.")
         elif 0 < chaff <= 5 and self._can_announce("chaff_low", 30.0):
             callouts.append("Chaff low.")
+
+        radar_alt = self._state.get("ownship", "radar_altitude_m") or 0.0
+        vert_speed = self._state.get("ownship", "vertical_speed_ms") or 0.0
+        gear = systems.get("gear_state", "unknown")
+        radar_alt_ft = uc.metres_to_feet(radar_alt)
+        vert_speed_fpm = uc.ms_to_fpm(vert_speed)
+        if (
+            radar_alt_ft < 500
+            and vert_speed_fpm < -300
+            and gear not in ("extended", "extending")
+            and self._can_announce("gear_unsafe", 10.0)
+        ):
+            callouts.append("Gear warning.")
 
         return callouts
 
