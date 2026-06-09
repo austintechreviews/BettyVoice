@@ -21,15 +21,28 @@ class CalloutConfig:
 
 
 @dataclass
+class VoiceConfig:
+    enabled: bool = False
+    mode: str = "record_command"
+    record_seconds: float = 3.0
+    model: str = "tiny.en"
+    device: str = "auto"
+    compute_type: str = "auto"
+
+
+@dataclass
 class Config:
     telemetry: TelemetryConfig = None
     callouts: CalloutConfig = None
+    voice: VoiceConfig = None
 
     def __post_init__(self):
         if self.telemetry is None:
             self.telemetry = TelemetryConfig()
         if self.callouts is None:
             self.callouts = CalloutConfig()
+        if self.voice is None:
+            self.voice = VoiceConfig()
 
 
 DEFAULT_CONFIG = Config()
