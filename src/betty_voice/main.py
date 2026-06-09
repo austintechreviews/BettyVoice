@@ -1,7 +1,5 @@
 """BettyVoice main entry point - terminal dashboard + command loop."""
 
-import sys
-
 from .config import Config
 from .state_store import StateStore
 from .telemetry_receiver import TelemetryReceiver

@@ -5,8 +5,7 @@ from abc import ABC, abstractmethod
 
 class TTSBackend(ABC):
     @abstractmethod
-    def speak(self, text: str) -> None:
-        ...
+    def speak(self, text: str) -> None: ...
 
 
 class NullTTS(TTSBackend):

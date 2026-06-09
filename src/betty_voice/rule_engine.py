@@ -41,13 +41,19 @@ class RuleEngine:
         if warnings.get("missile_warning") and self._can_announce("missile", 5.0):
             callouts.append("Missile warning.")
 
-        if warnings.get("engine_warning") and self._can_announce("engine_warning", 15.0):
+        if warnings.get("engine_warning") and self._can_announce(
+            "engine_warning", 15.0
+        ):
             callouts.append("Engine warning.")
 
         systems = self._state.get("systems") or {}
-        if systems.get("engine_1_failed") and self._can_announce("engine_1_failed", 15.0):
+        if systems.get("engine_1_failed") and self._can_announce(
+            "engine_1_failed", 15.0
+        ):
             callouts.append("Engine one failure.")
-        if systems.get("engine_2_failed") and self._can_announce("engine_2_failed", 15.0):
+        if systems.get("engine_2_failed") and self._can_announce(
+            "engine_2_failed", 15.0
+        ):
             callouts.append("Engine two failure.")
 
         weapons = self._state.get("weapons") or {}

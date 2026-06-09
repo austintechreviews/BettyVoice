@@ -6,27 +6,29 @@ from betty_voice.intent_router import IntentRouter
 
 def make_online_store():
     store = StateStore(stale_seconds=1.0, offline_seconds=5.0)
-    store.update({
-        "ownship": {
-            "altitude_asl_m": 3048.0,
-            "radar_altitude_m": 914.4,
-            "indicated_airspeed_ms": 216.0,
-            "heading_deg": 270.0,
-        },
-        "systems": {
-            "gear_state": "retracted",
-            "engine_1_enabled": True,
-            "engine_2_enabled": True,
-            "apu_enabled": False,
-        },
-        "weapons": {
-            "master_arm": True,
-            "selected_weapon": "AIM-120C",
-            "selected_weapon_count": 2,
-            "chaff": 20,
-            "flares": 12,
-        },
-    })
+    store.update(
+        {
+            "ownship": {
+                "altitude_asl_m": 3048.0,
+                "radar_altitude_m": 914.4,
+                "indicated_airspeed_ms": 216.0,
+                "heading_deg": 270.0,
+            },
+            "systems": {
+                "gear_state": "retracted",
+                "engine_1_enabled": True,
+                "engine_2_enabled": True,
+                "apu_enabled": False,
+            },
+            "weapons": {
+                "master_arm": True,
+                "selected_weapon": "AIM-120C",
+                "selected_weapon_count": 2,
+                "chaff": 20,
+                "flares": 12,
+            },
+        }
+    )
     return store
 
 

@@ -1,7 +1,5 @@
 """IntentRouter - maps typed commands to responses."""
 
-from typing import Optional
-
 from .state_store import StateStore
 from . import unit_conversions as uc
 

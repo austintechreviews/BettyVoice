@@ -9,7 +9,9 @@ from .state_store import StateStore
 
 
 class TelemetryReceiver:
-    def __init__(self, state_store: StateStore, host: str = "127.0.0.1", port: int = 47777):
+    def __init__(
+        self, state_store: StateStore, host: str = "127.0.0.1", port: int = 47777
+    ):
         self._state = state_store
         self._host = host
         self._port = port

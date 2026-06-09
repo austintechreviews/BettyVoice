@@ -3,7 +3,6 @@
 
 import json
 import socket
-import sys
 import time
 
 HOST = "127.0.0.1"
@@ -44,6 +43,7 @@ PACKETS = [
             "engine_2_starting": False,
             "engine_2_started": True,
             "engine_2_rpm": 94.0,
+            "fuel_percent": 85.0,
         },
         "weapons": {
             "master_arm": True,
@@ -93,6 +93,7 @@ PACKETS = [
             "engine_2_starting": False,
             "engine_2_started": False,
             "engine_2_rpm": 0.0,
+            "fuel_percent": 42.0,
         },
         "weapons": {
             "master_arm": False,
@@ -106,6 +107,56 @@ PACKETS = [
             "rwr_spike": True,
             "engine_warning": True,
             "fuel_warning": False,
+        },
+    },
+    {
+        "schema": "betty.telemetry.v1",
+        "timestamp_unix_ms": 0,
+        "mode": "mp_safe",
+        "aircraft": {"name": "AH-94", "scene": "Gulf of Aqaba"},
+        "ownship": {
+            "altitude_asl_m": 457.2,
+            "radar_altitude_m": 457.2,
+            "indicated_airspeed_ms": 120.0,
+            "airspeed_ms": 122.0,
+            "vertical_speed_ms": -5.0,
+            "heading_deg": 45.0,
+            "pitch_deg": -1.0,
+            "roll_deg": 0.0,
+            "aoa_deg": 4.0,
+            "player_gs": 1.0,
+        },
+        "systems": {
+            "gear_state": "extended",
+            "apu_available": True,
+            "apu_enabled": False,
+            "apu_rpm": 0.0,
+            "engine_1_available": True,
+            "engine_1_enabled": True,
+            "engine_1_failed": False,
+            "engine_1_starting": False,
+            "engine_1_started": True,
+            "engine_1_rpm": 92.0,
+            "engine_2_available": False,
+            "engine_2_enabled": False,
+            "engine_2_failed": False,
+            "engine_2_starting": False,
+            "engine_2_started": False,
+            "engine_2_rpm": 0.0,
+            "fuel_percent": 12.0,
+        },
+        "weapons": {
+            "master_arm": False,
+            "selected_weapon": "AGM-65",
+            "selected_weapon_count": 4,
+            "chaff": 0,
+            "flares": 30,
+        },
+        "warnings": {
+            "missile_warning": False,
+            "rwr_spike": False,
+            "engine_warning": False,
+            "fuel_warning": True,
         },
     },
 ]
@@ -125,9 +176,10 @@ def main():
             packet["timestamp_unix_ms"] = int(time.time() * 1000)
             data = json.dumps(packet).encode("utf-8")
             sock.sendto(data, (HOST, PORT))
-            print(f"Sent packet {count + 1} - alt={packet['ownship']['altitude_asl_m']}m "
-                  f"spd={packet['ownship']['indicated_airspeed_ms']}m/s "
-                  f"hdg={packet['ownship']['heading_deg']}")
+            alt = packet["ownship"]["altitude_asl_m"]
+            spd = packet["ownship"]["indicated_airspeed_ms"]
+            hdg = packet["ownship"]["heading_deg"]
+            print(f"Sent packet {count + 1} - alt={alt}m spd={spd}m/s hdg={hdg}")
             count += 1
             time.sleep(interval)
     except KeyboardInterrupt:
