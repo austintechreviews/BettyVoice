@@ -17,8 +17,9 @@ wakeword = [
 ]
 
 [project.scripts]
-betty-voice = "betty_voice.main:main"
+betty-voice = "betty_voice.ui:main"
 betty-voice-ui = "betty_voice.ui:main"
+betty-voice-cli = "betty_voice.main:main"
 betty-build-wakeword-dataset = "betty_voice.wake_word_training_cli:main"
 
 [tool.setuptools.packages.find]

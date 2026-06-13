@@ -5,14 +5,14 @@ External voice assistant for VTOL VR. Receives telemetry from the BettyTelemetry
 ## Quick Start
 
 ```bash
-# Run the app (typed commands only)
-python -m betty_voice.main
+# Browser settings/control UI (default)
+betty-voice
 
-# Or with voice input enabled
-python -m betty_voice.main --voice
+# Terminal mode, if you want the old prompt
+betty-voice-cli
 
-# Browser settings/control UI
-betty-voice-ui
+# Terminal mode with voice input enabled
+betty-voice-cli --voice
 ```
 
 The UI opens a local browser page at `http://127.0.0.1:8765` with settings for
@@ -79,7 +79,7 @@ python tools/replay_packets.py scenarios/combat_warning.jsonl --rate 10 --loop
 
 1. **Terminal 1**: Start BettyVoice
    ```bash
-   python -m betty_voice.main
+   betty-voice-cli
    ```
 
 2. **Terminal 2**: Replay a scenario
@@ -119,7 +119,7 @@ pip install sounddevice soundfile faster-whisper
 ### Usage
 
 ```bash
-betty-voice --voice
+betty-voice-cli --voice
 ```
 
 While running, type `v` and press Enter to start a 3-second recording. Say
@@ -178,7 +178,7 @@ pip install openwakeword sounddevice numpy faster-whisper soundfile
 ### Usage
 
 ```bash
-betty-voice --wake-word
+betty-voice-cli --wake-word
 ```
 
 Behaviour:
@@ -227,7 +227,7 @@ Outputs are written to `wakeword_training/betty/` by default:
 After training/exporting a model, point Betty at it:
 
 ```bash
-betty-voice \
+betty-voice-cli \
   --wake-word \
   --wake-word-model wakeword_training/livekit_output/betty/betty.onnx \
   --wake-word-threshold 0.8
@@ -262,7 +262,7 @@ pip install "betty-voice[voice]"
 ### Usage
 
 ```bash
-betty-voice --wake-word-mode whisper
+betty-voice-cli --wake-word-mode whisper
 ```
 
 Behaviour:
@@ -321,7 +321,7 @@ Download the `piper` executable and a voice model:
 ### Usage
 
 ```bash
-betty-voice --tts --tts-voice /path/to/model.onnx
+betty-voice-cli --tts --tts-voice /path/to/model.onnx
 ```
 
 ## Local LLM VTOL Knowledge Formatting
@@ -332,7 +332,7 @@ first; the model only rewrites it for clearer speech. This is enabled by
 default and falls back to deterministic answers if the local server is offline.
 
 ```bash
-betty-voice \
+betty-voice-cli \
   --llm-base-url http://localhost:1234/v1 \
   --llm-model qwen3.5-0.8b-optiq
 ```
