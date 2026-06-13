@@ -17,9 +17,11 @@ betty-voice-cli --voice
 
 The UI opens a local browser page at `http://127.0.0.1:8765` with settings for
 telemetry, voice input, wake modes, Piper voice/speed, callouts, and the local
-AI formatter. It also includes Start/Stop controls, a command box, push-to-talk
-trigger, and a live log for events such as telemetry connection, transcripts,
-and Betty responses.
+AI formatter. Telemetry has separate fields for the local listen address
+(`0.0.0.0` by default) and the optional VTOL VR PC source IP, such as
+`192.168.1.115`. It also includes Start/Stop controls, a command box,
+push-to-talk trigger, and a live log for events such as telemetry connection,
+transcripts, and Betty responses.
 
 ## Commands
 
@@ -378,7 +380,10 @@ message and continues with printed-only responses.
 
 ## Telemetry
 
-Listens on UDP `127.0.0.1:47777` for JSON packets matching the `betty.telemetry.v1` schema.
+Listens on UDP `0.0.0.0:47777` by default for JSON packets matching the
+`betty.telemetry.v1` schema. In the UI, set `VTOL VR PC IP` to the remote
+machine, for example `192.168.1.115`, to filter accepted packets without trying
+to bind Betty Voice to that remote address.
 
 Connection status is shown in the prompt: `[online]`, `[stale]`, or `[offline]`.
 

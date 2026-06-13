@@ -173,7 +173,9 @@ class BettyUIHandler(BaseHTTPRequestHandler):
 
 def _config_to_payload(config: Config) -> dict[str, Any]:
     return {
-        "telemetry_host": config.telemetry.host,
+        "telemetry_host": config.telemetry.source_host,
+        "telemetry_source_host": config.telemetry.source_host,
+        "telemetry_bind_host": config.telemetry.host,
         "telemetry_port": config.telemetry.port,
         "telemetry_stale": config.telemetry.stale_seconds,
         "telemetry_offline": config.telemetry.offline_seconds,
@@ -207,7 +209,15 @@ def _config_to_payload(config: Config) -> dict[str, Any]:
 
 def _payload_to_config(payload: dict[str, Any]) -> Config:
     config = Config()
-    config.telemetry.host = str(payload.get("telemetry_host", config.telemetry.host))
+    config.telemetry.host = str(
+        payload.get("telemetry_bind_host", config.telemetry.host)
+    )
+    config.telemetry.source_host = str(
+        payload.get(
+            "telemetry_source_host",
+            payload.get("telemetry_host", config.telemetry.source_host),
+        )
+    ).strip()
     config.telemetry.port = int(payload.get("telemetry_port", config.telemetry.port))
     config.telemetry.stale_seconds = float(
         payload.get("telemetry_stale", config.telemetry.stale_seconds)
@@ -449,7 +459,8 @@ _HTML = r"""
       <details open>
         <summary>Telemetry</summary>
         <div class="grid">
-          <label>Address</label><input id="telemetry_host">
+          <label>VTOL VR PC IP</label><input id="telemetry_source_host" placeholder="Optional, e.g. 192.168.1.115">
+          <label>Listen address</label><input id="telemetry_bind_host">
           <label>Port</label><input id="telemetry_port" type="number">
           <label>Stale seconds</label><input id="telemetry_stale" type="number" step="0.1">
           <label>Offline seconds</label><input id="telemetry_offline" type="number" step="0.1">
@@ -523,7 +534,7 @@ _HTML = r"""
   </main>
   <script>
     const fields = [
-      "telemetry_host", "telemetry_port", "telemetry_stale", "telemetry_offline",
+      "telemetry_source_host", "telemetry_bind_host", "telemetry_port", "telemetry_stale", "telemetry_offline",
       "voice_enabled", "voice_record_seconds", "voice_model", "voice_device", "voice_compute_type",
       "wake_word_enabled", "wake_word_model", "wake_word_threshold", "wake_word_cooldown",
       "wake_phrase_enabled", "wake_phrase", "wake_phrase_chunk",

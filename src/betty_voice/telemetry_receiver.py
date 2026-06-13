@@ -12,13 +12,15 @@ class TelemetryReceiver:
     def __init__(
         self,
         state_store: StateStore,
-        host: str = "127.0.0.1",
+        host: str = "0.0.0.0",
         port: int = 47777,
+        source_host: str = "",
         on_packet: Optional[Callable[[dict], None]] = None,
     ):
         self._state = state_store
         self._host = host
         self._port = port
+        self._source_host = source_host.strip()
         self._on_packet = on_packet
         self._sock: Optional[socket.socket] = None
         self._thread: Optional[threading.Thread] = None
@@ -43,12 +45,17 @@ class TelemetryReceiver:
     def _listen(self) -> None:
         while self._running:
             try:
-                data, _ = self._sock.recvfrom(65535)
-                self._handle_packet(data)
+                data, addr = self._sock.recvfrom(65535)
+                self._accept_packet(data, addr)
             except socket.timeout:
                 continue
             except OSError:
                 break
+
+    def _accept_packet(self, data: bytes, addr: tuple[str, int]) -> None:
+        if self._source_host and addr[0] != self._source_host:
+            return
+        self._handle_packet(data)
 
     def _handle_packet(self, data: bytes) -> None:
         try:

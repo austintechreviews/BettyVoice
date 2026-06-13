@@ -54,6 +54,7 @@ class BettyRuntime:
             state_store=self.state,
             host=config.telemetry.host,
             port=config.telemetry.port,
+            source_host=config.telemetry.source_host,
             on_packet=self._on_telemetry_packet,
         )
         self.wake_word_listener = None
@@ -73,6 +74,11 @@ class BettyRuntime:
             f"Telemetry listening on {self.config.telemetry.host}:"
             f"{self.config.telemetry.port}."
         )
+        if self.config.telemetry.source_host:
+            self._log(
+                f"Accepting telemetry only from "
+                f"{self.config.telemetry.source_host}."
+            )
 
         self.wake_word_listener = _init_wake_word(self.config, self.router, self.tts)
         self.wake_phrase_listener = _init_wake_phrase(self.config, self.router, self.tts)

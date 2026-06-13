@@ -6,8 +6,9 @@ from typing import Optional
 
 @dataclass
 class TelemetryConfig:
-    host: str = "127.0.0.1"
+    host: str = "0.0.0.0"
     port: int = 47777
+    source_host: str = ""
     stale_seconds: float = 1.0
     offline_seconds: float = 5.0
 
