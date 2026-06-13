@@ -1,0 +1,43 @@
+model_name: betty
+target_phrases:
+  - "betty"
+  - "hey betty"
+  - "okay betty"
+custom_negative_phrases:
+  - "speed"
+  - "status"
+  - "altitude"
+  - "heading"
+  - "fuel state"
+  - "gear down"
+  - "missile warning"
+  - "fox three"
+  - "rifle"
+  - "pickle"
+data_dir: wakeword_training/livekit_data
+output_dir: wakeword_training/livekit_output
+n_samples: 300
+n_samples_val: 80
+n_background_samples: 80
+n_background_samples_val: 20
+tts_batch_size: 20
+augmentation:
+  clip_duration: 2.0
+  batch_size: 16
+  rounds: 1
+  background_paths:
+    - wakeword_training/livekit_data/backgrounds
+  rir_paths:
+    - wakeword_training/livekit_data/rirs
+model:
+  model_type: conv_attention
+  model_size: tiny
+steps: 8000
+learning_rate: 0.0003
+label_smoothing: 0.0
+max_negative_weight: 35.0
+target_fp_per_hour: 1.0
+batch_n_per_class:
+  positive: 32
+  adversarial_negative: 16
+  background_noise: 8

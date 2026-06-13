@@ -10,7 +10,16 @@ python -m betty_voice.main
 
 # Or with voice input enabled
 python -m betty_voice.main --voice
+
+# Browser settings/control UI
+betty-voice-ui
 ```
+
+The UI opens a local browser page at `http://127.0.0.1:8765` with settings for
+telemetry, voice input, wake modes, Piper voice/speed, callouts, and the local
+AI formatter. It also includes Start/Stop controls, a command box, push-to-talk
+trigger, and a live log for events such as telemetry connection, transcripts,
+and Betty responses.
 
 ## Commands
 
@@ -175,7 +184,7 @@ betty-voice --wake-word
 Behaviour:
 1. BettyVoice starts telemetry receiver as normal.
 2. Wake-word listener starts in a background thread.
-3. Say the wake word (default: "hey jarvis").
+3. Say the wake word (default model: the local trained Betty ONNX).
 4. App prints "Wake word detected." and records for 3 seconds.
 5. Say a command like "speed" or "what's my altitude".
 6. App transcribes, normalizes, and shows the response.
@@ -186,8 +195,47 @@ Optional flags:
 | Flag | Default | Description |
 |---|---|---|
 | `--wake-word` | off | Enable wake-word detection |
-| `--wake-word-threshold` | 0.5 | Detection sensitivity (lower = more sensitive) |
+| `--wake-word-model` | `wakeword_training/livekit_output/betty/betty.onnx` | openWakeWord model name or path to a custom `.onnx`/`.tflite` model |
+| `--wake-word-threshold` | 0.8 | Detection sensitivity (lower = more sensitive) |
 | `--wake-word-cooldown` | 2.0 | Seconds between detections |
+
+### Synthetic Betty wake-word training
+
+Betty can prepare synthetic wake-word training data for a custom `"Betty"`
+model. This uses local Piper TTS clips, simple augmentation, and manifest/config
+files that can be fed to an ONNX wake-word trainer.
+
+```bash
+# Write phrase plan + training config only
+betty-build-wakeword-dataset --phrase betty
+
+# Also synthesize WAV clips with Piper
+betty-build-wakeword-dataset \
+  --phrase betty \
+  --piper-voice /path/to/en_US-voice.onnx \
+  --samples-per-phrase 50 \
+  --augmentations-per-clip 3
+```
+
+Outputs are written to `wakeword_training/betty/` by default:
+
+- `phrases.json` - positive and negative phrase plan.
+- `manifest.csv` - generated clip inventory.
+- `livekit_wakeword.yaml` - starter config for a synthetic ONNX wake-word trainer.
+- `clips/` and `clips_augmented/` - generated WAV data when `--piper-voice` is supplied.
+
+After training/exporting a model, point Betty at it:
+
+```bash
+betty-voice \
+  --wake-word \
+  --wake-word-model wakeword_training/livekit_output/betty/betty.onnx \
+  --wake-word-threshold 0.8
+```
+
+The threshold should come from the trainer evaluation output. The first local
+Betty pass evaluated best at `0.8`, with `100%` synthetic recall and about
+`0.89` false wakes/hour on the generated validation set.
 
 ### Graceful fallback
 
@@ -202,8 +250,8 @@ extra dependencies beyond the voice ones).
 
 When enabled, it continuously records short audio chunks and transcribes
 them.  If the transcript contains the wake phrase (default ``"betty"``),
-it records a command clip, transcribes it, and routes it through the
-same command system.
+it strips the wake phrase from that same transcript and routes the
+remaining command through the same command system.
 
 ### Install dependencies
 
@@ -220,13 +268,11 @@ betty-voice --wake-word-mode whisper
 Behaviour:
 1. BettyVoice starts telemetry receiver as normal.
 2. Wake phrase listener starts in a background thread.
-3. Say "Betty" (or "hey Betty", "okay Betty").
+3. Say "Betty speed" or another one-utterance command.
 4. App prints ``[wakephrase] Wake phrase detected: <transcript>``
-   and records for 3 seconds.
-5. Say a command like "speed" or "what's my altitude".
-6. App prints ``[wakephrase] Recognized command: <text>``
-7. The command is normalised and routed, and the response is shown.
-8. Typed commands and ``v`` (voice mode) still work alongside.
+   when the phrase is heard.
+5. The command is normalised and routed, and the response is shown.
+6. Typed commands and ``v`` (voice mode) still work alongside.
 
 Optional flags:
 
@@ -278,6 +324,34 @@ Download the `piper` executable and a voice model:
 betty-voice --tts --tts-voice /path/to/model.onnx
 ```
 
+## Local LLM VTOL Knowledge Formatting
+
+Betty can use a small OpenAI-compatible local model as a formatter for VTOL VR
+knowledge answers. The deterministic local knowledge base selects the answer
+first; the model only rewrites it for clearer speech. This is enabled by
+default and falls back to deterministic answers if the local server is offline.
+
+```bash
+betty-voice \
+  --llm-base-url http://localhost:1234/v1 \
+  --llm-model qwen3.5-0.8b-optiq
+```
+
+Use `--no-llm` for deterministic-only responses.
+
+Useful questions:
+
+- `recommend A2A loadout for FA-26B`
+- `show FA-26B performance graph for solver`
+- `optimal speed for turning`
+- `teach me missile evasion`
+- `what is AIM-120C`
+
+The source reference is documented in `docs/vtol_reference.md`; the
+machine-readable data is packaged in `src/betty_voice/data/vtol_reference.json`.
+For context-aware questions, Betty uses the current telemetry packet first, then
+lets the local model rephrase the deterministic answer.
+
 Optional flags:
 
 | Flag | Default | Description |
@@ -286,6 +360,7 @@ Optional flags:
 | `--no-tts` | off | Explicitly disable TTS (overrides --tts) |
 | `--tts-engine` | piper | TTS engine (only piper supported) |
 | `--tts-voice` | None | Path to Piper voice model (.onnx) |
+| `--tts-speed` | 1.0 | Piper length scale; lower is faster, higher is slower |
 
 ### Audio playback
 
@@ -323,6 +398,8 @@ BettyVoice/
   src/betty_voice/
     __init__.py
     main.py
+    runtime.py
+    ui.py
     config.py
     speech_input.py
     telemetry_receiver.py

@@ -1,0 +1,381 @@
+path,label,phrase,source
+wakeword_training/betty/clips_say/positive/betty_Samantha.wav,positive,betty,macos_say:Samantha
+wakeword_training/betty/clips_say/positive/betty_Daniel.wav,positive,betty,macos_say:Daniel
+wakeword_training/betty/clips_say/positive/betty_Karen.wav,positive,betty,macos_say:Karen
+wakeword_training/betty/clips_say/positive/betty_Moira.wav,positive,betty,macos_say:Moira
+wakeword_training/betty/clips_say/positive/betty_Tessa.wav,positive,betty,macos_say:Tessa
+wakeword_training/betty/clips_say/positive/hey_betty_Samantha.wav,positive,hey betty,macos_say:Samantha
+wakeword_training/betty/clips_say/positive/hey_betty_Daniel.wav,positive,hey betty,macos_say:Daniel
+wakeword_training/betty/clips_say/positive/hey_betty_Karen.wav,positive,hey betty,macos_say:Karen
+wakeword_training/betty/clips_say/positive/hey_betty_Moira.wav,positive,hey betty,macos_say:Moira
+wakeword_training/betty/clips_say/positive/hey_betty_Tessa.wav,positive,hey betty,macos_say:Tessa
+wakeword_training/betty/clips_say/positive/okay_betty_Samantha.wav,positive,okay betty,macos_say:Samantha
+wakeword_training/betty/clips_say/positive/okay_betty_Daniel.wav,positive,okay betty,macos_say:Daniel
+wakeword_training/betty/clips_say/positive/okay_betty_Karen.wav,positive,okay betty,macos_say:Karen
+wakeword_training/betty/clips_say/positive/okay_betty_Moira.wav,positive,okay betty,macos_say:Moira
+wakeword_training/betty/clips_say/positive/okay_betty_Tessa.wav,positive,okay betty,macos_say:Tessa
+wakeword_training/betty/clips_say/positive/betty_speed_Samantha.wav,positive,betty speed,macos_say:Samantha
+wakeword_training/betty/clips_say/positive/betty_speed_Daniel.wav,positive,betty speed,macos_say:Daniel
+wakeword_training/betty/clips_say/positive/betty_speed_Karen.wav,positive,betty speed,macos_say:Karen
+wakeword_training/betty/clips_say/positive/betty_speed_Moira.wav,positive,betty speed,macos_say:Moira
+wakeword_training/betty/clips_say/positive/betty_speed_Tessa.wav,positive,betty speed,macos_say:Tessa
+wakeword_training/betty/clips_say/positive/betty_status_Samantha.wav,positive,betty status,macos_say:Samantha
+wakeword_training/betty/clips_say/positive/betty_status_Daniel.wav,positive,betty status,macos_say:Daniel
+wakeword_training/betty/clips_say/positive/betty_status_Karen.wav,positive,betty status,macos_say:Karen
+wakeword_training/betty/clips_say/positive/betty_status_Moira.wav,positive,betty status,macos_say:Moira
+wakeword_training/betty/clips_say/positive/betty_status_Tessa.wav,positive,betty status,macos_say:Tessa
+wakeword_training/betty/clips_say/positive/betty_altitude_Samantha.wav,positive,betty altitude,macos_say:Samantha
+wakeword_training/betty/clips_say/positive/betty_altitude_Daniel.wav,positive,betty altitude,macos_say:Daniel
+wakeword_training/betty/clips_say/positive/betty_altitude_Karen.wav,positive,betty altitude,macos_say:Karen
+wakeword_training/betty/clips_say/positive/betty_altitude_Moira.wav,positive,betty altitude,macos_say:Moira
+wakeword_training/betty/clips_say/positive/betty_altitude_Tessa.wav,positive,betty altitude,macos_say:Tessa
+wakeword_training/betty/clips_say/negative/speed_Samantha.wav,negative,speed,macos_say:Samantha
+wakeword_training/betty/clips_say/negative/speed_Daniel.wav,negative,speed,macos_say:Daniel
+wakeword_training/betty/clips_say/negative/speed_Karen.wav,negative,speed,macos_say:Karen
+wakeword_training/betty/clips_say/negative/speed_Moira.wav,negative,speed,macos_say:Moira
+wakeword_training/betty/clips_say/negative/speed_Tessa.wav,negative,speed,macos_say:Tessa
+wakeword_training/betty/clips_say/negative/status_Samantha.wav,negative,status,macos_say:Samantha
+wakeword_training/betty/clips_say/negative/status_Daniel.wav,negative,status,macos_say:Daniel
+wakeword_training/betty/clips_say/negative/status_Karen.wav,negative,status,macos_say:Karen
+wakeword_training/betty/clips_say/negative/status_Moira.wav,negative,status,macos_say:Moira
+wakeword_training/betty/clips_say/negative/status_Tessa.wav,negative,status,macos_say:Tessa
+wakeword_training/betty/clips_say/negative/altitude_Samantha.wav,negative,altitude,macos_say:Samantha
+wakeword_training/betty/clips_say/negative/altitude_Daniel.wav,negative,altitude,macos_say:Daniel
+wakeword_training/betty/clips_say/negative/altitude_Karen.wav,negative,altitude,macos_say:Karen
+wakeword_training/betty/clips_say/negative/altitude_Moira.wav,negative,altitude,macos_say:Moira
+wakeword_training/betty/clips_say/negative/altitude_Tessa.wav,negative,altitude,macos_say:Tessa
+wakeword_training/betty/clips_say/negative/heading_Samantha.wav,negative,heading,macos_say:Samantha
+wakeword_training/betty/clips_say/negative/heading_Daniel.wav,negative,heading,macos_say:Daniel
+wakeword_training/betty/clips_say/negative/heading_Karen.wav,negative,heading,macos_say:Karen
+wakeword_training/betty/clips_say/negative/heading_Moira.wav,negative,heading,macos_say:Moira
+wakeword_training/betty/clips_say/negative/heading_Tessa.wav,negative,heading,macos_say:Tessa
+wakeword_training/betty/clips_say/negative/fuel_state_Samantha.wav,negative,fuel state,macos_say:Samantha
+wakeword_training/betty/clips_say/negative/fuel_state_Daniel.wav,negative,fuel state,macos_say:Daniel
+wakeword_training/betty/clips_say/negative/fuel_state_Karen.wav,negative,fuel state,macos_say:Karen
+wakeword_training/betty/clips_say/negative/fuel_state_Moira.wav,negative,fuel state,macos_say:Moira
+wakeword_training/betty/clips_say/negative/fuel_state_Tessa.wav,negative,fuel state,macos_say:Tessa
+wakeword_training/betty/clips_say/negative/gear_down_Samantha.wav,negative,gear down,macos_say:Samantha
+wakeword_training/betty/clips_say/negative/gear_down_Daniel.wav,negative,gear down,macos_say:Daniel
+wakeword_training/betty/clips_say/negative/gear_down_Karen.wav,negative,gear down,macos_say:Karen
+wakeword_training/betty/clips_say/negative/gear_down_Moira.wav,negative,gear down,macos_say:Moira
+wakeword_training/betty/clips_say/negative/gear_down_Tessa.wav,negative,gear down,macos_say:Tessa
+wakeword_training/betty/clips_say/negative/master_arm_Samantha.wav,negative,master arm,macos_say:Samantha
+wakeword_training/betty/clips_say/negative/master_arm_Daniel.wav,negative,master arm,macos_say:Daniel
+wakeword_training/betty/clips_say/negative/master_arm_Karen.wav,negative,master arm,macos_say:Karen
+wakeword_training/betty/clips_say/negative/master_arm_Moira.wav,negative,master arm,macos_say:Moira
+wakeword_training/betty/clips_say/negative/master_arm_Tessa.wav,negative,master arm,macos_say:Tessa
+wakeword_training/betty/clips_say/negative/missile_warning_Samantha.wav,negative,missile warning,macos_say:Samantha
+wakeword_training/betty/clips_say/negative/missile_warning_Daniel.wav,negative,missile warning,macos_say:Daniel
+wakeword_training/betty/clips_say/negative/missile_warning_Karen.wav,negative,missile warning,macos_say:Karen
+wakeword_training/betty/clips_say/negative/missile_warning_Moira.wav,negative,missile warning,macos_say:Moira
+wakeword_training/betty/clips_say/negative/missile_warning_Tessa.wav,negative,missile warning,macos_say:Tessa
+wakeword_training/betty/clips_say/negative/radio_check_Samantha.wav,negative,radio check,macos_say:Samantha
+wakeword_training/betty/clips_say/negative/radio_check_Daniel.wav,negative,radio check,macos_say:Daniel
+wakeword_training/betty/clips_say/negative/radio_check_Karen.wav,negative,radio check,macos_say:Karen
+wakeword_training/betty/clips_say/negative/radio_check_Moira.wav,negative,radio check,macos_say:Moira
+wakeword_training/betty/clips_say/negative/radio_check_Tessa.wav,negative,radio check,macos_say:Tessa
+wakeword_training/betty/clips_say/negative/tower_request_takeoff_Samantha.wav,negative,tower request takeoff,macos_say:Samantha
+wakeword_training/betty/clips_say/negative/tower_request_takeoff_Daniel.wav,negative,tower request takeoff,macos_say:Daniel
+wakeword_training/betty/clips_say/negative/tower_request_takeoff_Karen.wav,negative,tower request takeoff,macos_say:Karen
+wakeword_training/betty/clips_say/negative/tower_request_takeoff_Moira.wav,negative,tower request takeoff,macos_say:Moira
+wakeword_training/betty/clips_say/negative/tower_request_takeoff_Tessa.wav,negative,tower request takeoff,macos_say:Tessa
+wakeword_training/betty/clips_say/negative/fox_three_Samantha.wav,negative,fox three,macos_say:Samantha
+wakeword_training/betty/clips_say/negative/fox_three_Daniel.wav,negative,fox three,macos_say:Daniel
+wakeword_training/betty/clips_say/negative/fox_three_Karen.wav,negative,fox three,macos_say:Karen
+wakeword_training/betty/clips_say/negative/fox_three_Moira.wav,negative,fox three,macos_say:Moira
+wakeword_training/betty/clips_say/negative/fox_three_Tessa.wav,negative,fox three,macos_say:Tessa
+wakeword_training/betty/clips_say/negative/rifle_Samantha.wav,negative,rifle,macos_say:Samantha
+wakeword_training/betty/clips_say/negative/rifle_Daniel.wav,negative,rifle,macos_say:Daniel
+wakeword_training/betty/clips_say/negative/rifle_Karen.wav,negative,rifle,macos_say:Karen
+wakeword_training/betty/clips_say/negative/rifle_Moira.wav,negative,rifle,macos_say:Moira
+wakeword_training/betty/clips_say/negative/rifle_Tessa.wav,negative,rifle,macos_say:Tessa
+wakeword_training/betty/clips_say/negative/pickle_Samantha.wav,negative,pickle,macos_say:Samantha
+wakeword_training/betty/clips_say/negative/pickle_Daniel.wav,negative,pickle,macos_say:Daniel
+wakeword_training/betty/clips_say/negative/pickle_Karen.wav,negative,pickle,macos_say:Karen
+wakeword_training/betty/clips_say/negative/pickle_Moira.wav,negative,pickle,macos_say:Moira
+wakeword_training/betty/clips_say/negative/pickle_Tessa.wav,negative,pickle,macos_say:Tessa
+wakeword_training/betty/clips_say_augmented/positive/betty_Samantha_aug00.wav,positive,betty,"augmented:g=1.01,pad=12"
+wakeword_training/betty/clips_say_augmented/positive/betty_Samantha_aug01.wav,positive,betty,"augmented:g=1.06,pad=125"
+wakeword_training/betty/clips_say_augmented/positive/betty_Samantha_aug02.wav,positive,betty,"augmented:g=0.82,pad=52"
+wakeword_training/betty/clips_say_augmented/positive/betty_Daniel_aug00.wav,positive,betty,"augmented:g=1.03,pad=279"
+wakeword_training/betty/clips_say_augmented/positive/betty_Daniel_aug01.wav,positive,betty,"augmented:g=0.76,pad=216"
+wakeword_training/betty/clips_say_augmented/positive/betty_Daniel_aug02.wav,positive,betty,"augmented:g=0.73,pad=47"
+wakeword_training/betty/clips_say_augmented/positive/betty_Karen_aug00.wav,positive,betty,"augmented:g=0.82,pad=258"
+wakeword_training/betty/clips_say_augmented/positive/betty_Karen_aug01.wav,positive,betty,"augmented:g=1.00,pad=101"
+wakeword_training/betty/clips_say_augmented/positive/betty_Karen_aug02.wav,positive,betty,"augmented:g=1.05,pad=279"
+wakeword_training/betty/clips_say_augmented/positive/betty_Moira_aug00.wav,positive,betty,"augmented:g=0.91,pad=229"
+wakeword_training/betty/clips_say_augmented/positive/betty_Moira_aug01.wav,positive,betty,"augmented:g=0.99,pad=3"
+wakeword_training/betty/clips_say_augmented/positive/betty_Moira_aug02.wav,positive,betty,"augmented:g=1.07,pad=81"
+wakeword_training/betty/clips_say_augmented/positive/betty_Tessa_aug00.wav,positive,betty,"augmented:g=1.04,pad=174"
+wakeword_training/betty/clips_say_augmented/positive/betty_Tessa_aug01.wav,positive,betty,"augmented:g=0.85,pad=110"
+wakeword_training/betty/clips_say_augmented/positive/betty_Tessa_aug02.wav,positive,betty,"augmented:g=1.16,pad=172"
+wakeword_training/betty/clips_say_augmented/positive/hey_betty_Samantha_aug00.wav,positive,hey betty,"augmented:g=0.77,pad=194"
+wakeword_training/betty/clips_say_augmented/positive/hey_betty_Samantha_aug01.wav,positive,hey betty,"augmented:g=0.76,pad=176"
+wakeword_training/betty/clips_say_augmented/positive/hey_betty_Samantha_aug02.wav,positive,hey betty,"augmented:g=1.00,pad=22"
+wakeword_training/betty/clips_say_augmented/positive/hey_betty_Daniel_aug00.wav,positive,hey betty,"augmented:g=1.06,pad=274"
+wakeword_training/betty/clips_say_augmented/positive/hey_betty_Daniel_aug01.wav,positive,hey betty,"augmented:g=0.78,pad=193"
+wakeword_training/betty/clips_say_augmented/positive/hey_betty_Daniel_aug02.wav,positive,hey betty,"augmented:g=0.76,pad=150"
+wakeword_training/betty/clips_say_augmented/positive/hey_betty_Karen_aug00.wav,positive,hey betty,"augmented:g=1.10,pad=185"
+wakeword_training/betty/clips_say_augmented/positive/hey_betty_Karen_aug01.wav,positive,hey betty,"augmented:g=0.99,pad=35"
+wakeword_training/betty/clips_say_augmented/positive/hey_betty_Karen_aug02.wav,positive,hey betty,"augmented:g=0.74,pad=116"
+wakeword_training/betty/clips_say_augmented/positive/hey_betty_Moira_aug00.wav,positive,hey betty,"augmented:g=1.08,pad=40"
+wakeword_training/betty/clips_say_augmented/positive/hey_betty_Moira_aug01.wav,positive,hey betty,"augmented:g=1.11,pad=51"
+wakeword_training/betty/clips_say_augmented/positive/hey_betty_Moira_aug02.wav,positive,hey betty,"augmented:g=0.89,pad=232"
+wakeword_training/betty/clips_say_augmented/positive/hey_betty_Tessa_aug00.wav,positive,hey betty,"augmented:g=1.01,pad=186"
+wakeword_training/betty/clips_say_augmented/positive/hey_betty_Tessa_aug01.wav,positive,hey betty,"augmented:g=0.79,pad=181"
+wakeword_training/betty/clips_say_augmented/positive/hey_betty_Tessa_aug02.wav,positive,hey betty,"augmented:g=0.82,pad=136"
+wakeword_training/betty/clips_say_augmented/positive/okay_betty_Samantha_aug00.wav,positive,okay betty,"augmented:g=1.04,pad=36"
+wakeword_training/betty/clips_say_augmented/positive/okay_betty_Samantha_aug01.wav,positive,okay betty,"augmented:g=1.00,pad=87"
+wakeword_training/betty/clips_say_augmented/positive/okay_betty_Samantha_aug02.wav,positive,okay betty,"augmented:g=0.97,pad=125"
+wakeword_training/betty/clips_say_augmented/positive/okay_betty_Daniel_aug00.wav,positive,okay betty,"augmented:g=0.80,pad=194"
+wakeword_training/betty/clips_say_augmented/positive/okay_betty_Daniel_aug01.wav,positive,okay betty,"augmented:g=0.84,pad=112"
+wakeword_training/betty/clips_say_augmented/positive/okay_betty_Daniel_aug02.wav,positive,okay betty,"augmented:g=1.03,pad=28"
+wakeword_training/betty/clips_say_augmented/positive/okay_betty_Karen_aug00.wav,positive,okay betty,"augmented:g=0.83,pad=16"
+wakeword_training/betty/clips_say_augmented/positive/okay_betty_Karen_aug01.wav,positive,okay betty,"augmented:g=1.09,pad=205"
+wakeword_training/betty/clips_say_augmented/positive/okay_betty_Karen_aug02.wav,positive,okay betty,"augmented:g=0.84,pad=108"
+wakeword_training/betty/clips_say_augmented/positive/okay_betty_Moira_aug00.wav,positive,okay betty,"augmented:g=1.14,pad=161"
+wakeword_training/betty/clips_say_augmented/positive/okay_betty_Moira_aug01.wav,positive,okay betty,"augmented:g=0.82,pad=255"
+wakeword_training/betty/clips_say_augmented/positive/okay_betty_Moira_aug02.wav,positive,okay betty,"augmented:g=0.90,pad=234"
+wakeword_training/betty/clips_say_augmented/positive/okay_betty_Tessa_aug00.wav,positive,okay betty,"augmented:g=0.79,pad=71"
+wakeword_training/betty/clips_say_augmented/positive/okay_betty_Tessa_aug01.wav,positive,okay betty,"augmented:g=0.83,pad=275"
+wakeword_training/betty/clips_say_augmented/positive/okay_betty_Tessa_aug02.wav,positive,okay betty,"augmented:g=0.84,pad=219"
+wakeword_training/betty/clips_say_augmented/positive/betty_speed_Samantha_aug00.wav,positive,betty speed,"augmented:g=1.13,pad=204"
+wakeword_training/betty/clips_say_augmented/positive/betty_speed_Samantha_aug01.wav,positive,betty speed,"augmented:g=0.89,pad=70"
+wakeword_training/betty/clips_say_augmented/positive/betty_speed_Samantha_aug02.wav,positive,betty speed,"augmented:g=0.95,pad=46"
+wakeword_training/betty/clips_say_augmented/positive/betty_speed_Daniel_aug00.wav,positive,betty speed,"augmented:g=1.07,pad=56"
+wakeword_training/betty/clips_say_augmented/positive/betty_speed_Daniel_aug01.wav,positive,betty speed,"augmented:g=0.79,pad=81"
+wakeword_training/betty/clips_say_augmented/positive/betty_speed_Daniel_aug02.wav,positive,betty speed,"augmented:g=1.08,pad=216"
+wakeword_training/betty/clips_say_augmented/positive/betty_speed_Karen_aug00.wav,positive,betty speed,"augmented:g=0.99,pad=197"
+wakeword_training/betty/clips_say_augmented/positive/betty_speed_Karen_aug01.wav,positive,betty speed,"augmented:g=0.90,pad=239"
+wakeword_training/betty/clips_say_augmented/positive/betty_speed_Karen_aug02.wav,positive,betty speed,"augmented:g=0.96,pad=5"
+wakeword_training/betty/clips_say_augmented/positive/betty_speed_Moira_aug00.wav,positive,betty speed,"augmented:g=1.03,pad=58"
+wakeword_training/betty/clips_say_augmented/positive/betty_speed_Moira_aug01.wav,positive,betty speed,"augmented:g=1.03,pad=274"
+wakeword_training/betty/clips_say_augmented/positive/betty_speed_Moira_aug02.wav,positive,betty speed,"augmented:g=1.07,pad=174"
+wakeword_training/betty/clips_say_augmented/positive/betty_speed_Tessa_aug00.wav,positive,betty speed,"augmented:g=0.77,pad=222"
+wakeword_training/betty/clips_say_augmented/positive/betty_speed_Tessa_aug01.wav,positive,betty speed,"augmented:g=0.79,pad=1"
+wakeword_training/betty/clips_say_augmented/positive/betty_speed_Tessa_aug02.wav,positive,betty speed,"augmented:g=1.16,pad=134"
+wakeword_training/betty/clips_say_augmented/positive/betty_status_Samantha_aug00.wav,positive,betty status,"augmented:g=1.17,pad=91"
+wakeword_training/betty/clips_say_augmented/positive/betty_status_Samantha_aug01.wav,positive,betty status,"augmented:g=0.95,pad=54"
+wakeword_training/betty/clips_say_augmented/positive/betty_status_Samantha_aug02.wav,positive,betty status,"augmented:g=1.12,pad=152"
+wakeword_training/betty/clips_say_augmented/positive/betty_status_Daniel_aug00.wav,positive,betty status,"augmented:g=1.11,pad=259"
+wakeword_training/betty/clips_say_augmented/positive/betty_status_Daniel_aug01.wav,positive,betty status,"augmented:g=1.00,pad=78"
+wakeword_training/betty/clips_say_augmented/positive/betty_status_Daniel_aug02.wav,positive,betty status,"augmented:g=0.89,pad=82"
+wakeword_training/betty/clips_say_augmented/positive/betty_status_Karen_aug00.wav,positive,betty status,"augmented:g=0.97,pad=271"
+wakeword_training/betty/clips_say_augmented/positive/betty_status_Karen_aug01.wav,positive,betty status,"augmented:g=1.14,pad=165"
+wakeword_training/betty/clips_say_augmented/positive/betty_status_Karen_aug02.wav,positive,betty status,"augmented:g=0.94,pad=57"
+wakeword_training/betty/clips_say_augmented/positive/betty_status_Moira_aug00.wav,positive,betty status,"augmented:g=1.15,pad=157"
+wakeword_training/betty/clips_say_augmented/positive/betty_status_Moira_aug01.wav,positive,betty status,"augmented:g=0.83,pad=123"
+wakeword_training/betty/clips_say_augmented/positive/betty_status_Moira_aug02.wav,positive,betty status,"augmented:g=1.12,pad=40"
+wakeword_training/betty/clips_say_augmented/positive/betty_status_Tessa_aug00.wav,positive,betty status,"augmented:g=0.76,pad=248"
+wakeword_training/betty/clips_say_augmented/positive/betty_status_Tessa_aug01.wav,positive,betty status,"augmented:g=1.10,pad=272"
+wakeword_training/betty/clips_say_augmented/positive/betty_status_Tessa_aug02.wav,positive,betty status,"augmented:g=1.07,pad=65"
+wakeword_training/betty/clips_say_augmented/positive/betty_altitude_Samantha_aug00.wav,positive,betty altitude,"augmented:g=1.02,pad=84"
+wakeword_training/betty/clips_say_augmented/positive/betty_altitude_Samantha_aug01.wav,positive,betty altitude,"augmented:g=0.84,pad=216"
+wakeword_training/betty/clips_say_augmented/positive/betty_altitude_Samantha_aug02.wav,positive,betty altitude,"augmented:g=1.16,pad=276"
+wakeword_training/betty/clips_say_augmented/positive/betty_altitude_Daniel_aug00.wav,positive,betty altitude,"augmented:g=1.07,pad=102"
+wakeword_training/betty/clips_say_augmented/positive/betty_altitude_Daniel_aug01.wav,positive,betty altitude,"augmented:g=1.05,pad=204"
+wakeword_training/betty/clips_say_augmented/positive/betty_altitude_Daniel_aug02.wav,positive,betty altitude,"augmented:g=1.18,pad=191"
+wakeword_training/betty/clips_say_augmented/positive/betty_altitude_Karen_aug00.wav,positive,betty altitude,"augmented:g=0.92,pad=264"
+wakeword_training/betty/clips_say_augmented/positive/betty_altitude_Karen_aug01.wav,positive,betty altitude,"augmented:g=0.93,pad=126"
+wakeword_training/betty/clips_say_augmented/positive/betty_altitude_Karen_aug02.wav,positive,betty altitude,"augmented:g=0.82,pad=173"
+wakeword_training/betty/clips_say_augmented/positive/betty_altitude_Moira_aug00.wav,positive,betty altitude,"augmented:g=0.73,pad=117"
+wakeword_training/betty/clips_say_augmented/positive/betty_altitude_Moira_aug01.wav,positive,betty altitude,"augmented:g=0.99,pad=3"
+wakeword_training/betty/clips_say_augmented/positive/betty_altitude_Moira_aug02.wav,positive,betty altitude,"augmented:g=0.75,pad=30"
+wakeword_training/betty/clips_say_augmented/positive/betty_altitude_Tessa_aug00.wav,positive,betty altitude,"augmented:g=0.83,pad=16"
+wakeword_training/betty/clips_say_augmented/positive/betty_altitude_Tessa_aug01.wav,positive,betty altitude,"augmented:g=1.12,pad=36"
+wakeword_training/betty/clips_say_augmented/positive/betty_altitude_Tessa_aug02.wav,positive,betty altitude,"augmented:g=0.96,pad=142"
+wakeword_training/betty/clips_say_augmented/negative/speed_Samantha_aug00.wav,negative,speed,"augmented:g=1.03,pad=109"
+wakeword_training/betty/clips_say_augmented/negative/speed_Samantha_aug01.wav,negative,speed,"augmented:g=0.97,pad=242"
+wakeword_training/betty/clips_say_augmented/negative/speed_Samantha_aug02.wav,negative,speed,"augmented:g=0.83,pad=242"
+wakeword_training/betty/clips_say_augmented/negative/speed_Daniel_aug00.wav,negative,speed,"augmented:g=1.09,pad=97"
+wakeword_training/betty/clips_say_augmented/negative/speed_Daniel_aug01.wav,negative,speed,"augmented:g=0.76,pad=220"
+wakeword_training/betty/clips_say_augmented/negative/speed_Daniel_aug02.wav,negative,speed,"augmented:g=0.88,pad=210"
+wakeword_training/betty/clips_say_augmented/negative/speed_Karen_aug00.wav,negative,speed,"augmented:g=0.93,pad=27"
+wakeword_training/betty/clips_say_augmented/negative/speed_Karen_aug01.wav,negative,speed,"augmented:g=1.03,pad=50"
+wakeword_training/betty/clips_say_augmented/negative/speed_Karen_aug02.wav,negative,speed,"augmented:g=0.75,pad=173"
+wakeword_training/betty/clips_say_augmented/negative/speed_Moira_aug00.wav,negative,speed,"augmented:g=1.09,pad=55"
+wakeword_training/betty/clips_say_augmented/negative/speed_Moira_aug01.wav,negative,speed,"augmented:g=0.83,pad=97"
+wakeword_training/betty/clips_say_augmented/negative/speed_Moira_aug02.wav,negative,speed,"augmented:g=0.97,pad=71"
+wakeword_training/betty/clips_say_augmented/negative/speed_Tessa_aug00.wav,negative,speed,"augmented:g=0.91,pad=142"
+wakeword_training/betty/clips_say_augmented/negative/speed_Tessa_aug01.wav,negative,speed,"augmented:g=0.93,pad=38"
+wakeword_training/betty/clips_say_augmented/negative/speed_Tessa_aug02.wav,negative,speed,"augmented:g=0.92,pad=50"
+wakeword_training/betty/clips_say_augmented/negative/status_Samantha_aug00.wav,negative,status,"augmented:g=0.74,pad=276"
+wakeword_training/betty/clips_say_augmented/negative/status_Samantha_aug01.wav,negative,status,"augmented:g=1.10,pad=47"
+wakeword_training/betty/clips_say_augmented/negative/status_Samantha_aug02.wav,negative,status,"augmented:g=1.15,pad=121"
+wakeword_training/betty/clips_say_augmented/negative/status_Daniel_aug00.wav,negative,status,"augmented:g=0.80,pad=248"
+wakeword_training/betty/clips_say_augmented/negative/status_Daniel_aug01.wav,negative,status,"augmented:g=0.94,pad=205"
+wakeword_training/betty/clips_say_augmented/negative/status_Daniel_aug02.wav,negative,status,"augmented:g=1.14,pad=84"
+wakeword_training/betty/clips_say_augmented/negative/status_Karen_aug00.wav,negative,status,"augmented:g=0.89,pad=199"
+wakeword_training/betty/clips_say_augmented/negative/status_Karen_aug01.wav,negative,status,"augmented:g=0.84,pad=232"
+wakeword_training/betty/clips_say_augmented/negative/status_Karen_aug02.wav,negative,status,"augmented:g=0.85,pad=249"
+wakeword_training/betty/clips_say_augmented/negative/status_Moira_aug00.wav,negative,status,"augmented:g=0.79,pad=151"
+wakeword_training/betty/clips_say_augmented/negative/status_Moira_aug01.wav,negative,status,"augmented:g=0.82,pad=29"
+wakeword_training/betty/clips_say_augmented/negative/status_Moira_aug02.wav,negative,status,"augmented:g=0.99,pad=277"
+wakeword_training/betty/clips_say_augmented/negative/status_Tessa_aug00.wav,negative,status,"augmented:g=0.75,pad=160"
+wakeword_training/betty/clips_say_augmented/negative/status_Tessa_aug01.wav,negative,status,"augmented:g=0.75,pad=244"
+wakeword_training/betty/clips_say_augmented/negative/status_Tessa_aug02.wav,negative,status,"augmented:g=0.95,pad=271"
+wakeword_training/betty/clips_say_augmented/negative/altitude_Samantha_aug00.wav,negative,altitude,"augmented:g=0.79,pad=260"
+wakeword_training/betty/clips_say_augmented/negative/altitude_Samantha_aug01.wav,negative,altitude,"augmented:g=0.76,pad=95"
+wakeword_training/betty/clips_say_augmented/negative/altitude_Samantha_aug02.wav,negative,altitude,"augmented:g=0.75,pad=34"
+wakeword_training/betty/clips_say_augmented/negative/altitude_Daniel_aug00.wav,negative,altitude,"augmented:g=1.03,pad=120"
+wakeword_training/betty/clips_say_augmented/negative/altitude_Daniel_aug01.wav,negative,altitude,"augmented:g=0.91,pad=126"
+wakeword_training/betty/clips_say_augmented/negative/altitude_Daniel_aug02.wav,negative,altitude,"augmented:g=0.99,pad=20"
+wakeword_training/betty/clips_say_augmented/negative/altitude_Karen_aug00.wav,negative,altitude,"augmented:g=1.00,pad=214"
+wakeword_training/betty/clips_say_augmented/negative/altitude_Karen_aug01.wav,negative,altitude,"augmented:g=1.02,pad=267"
+wakeword_training/betty/clips_say_augmented/negative/altitude_Karen_aug02.wav,negative,altitude,"augmented:g=0.87,pad=133"
+wakeword_training/betty/clips_say_augmented/negative/altitude_Moira_aug00.wav,negative,altitude,"augmented:g=0.81,pad=160"
+wakeword_training/betty/clips_say_augmented/negative/altitude_Moira_aug01.wav,negative,altitude,"augmented:g=0.83,pad=202"
+wakeword_training/betty/clips_say_augmented/negative/altitude_Moira_aug02.wav,negative,altitude,"augmented:g=0.78,pad=153"
+wakeword_training/betty/clips_say_augmented/negative/altitude_Tessa_aug00.wav,negative,altitude,"augmented:g=0.93,pad=37"
+wakeword_training/betty/clips_say_augmented/negative/altitude_Tessa_aug01.wav,negative,altitude,"augmented:g=0.72,pad=51"
+wakeword_training/betty/clips_say_augmented/negative/altitude_Tessa_aug02.wav,negative,altitude,"augmented:g=0.75,pad=109"
+wakeword_training/betty/clips_say_augmented/negative/heading_Samantha_aug00.wav,negative,heading,"augmented:g=0.95,pad=67"
+wakeword_training/betty/clips_say_augmented/negative/heading_Samantha_aug01.wav,negative,heading,"augmented:g=1.15,pad=35"
+wakeword_training/betty/clips_say_augmented/negative/heading_Samantha_aug02.wav,negative,heading,"augmented:g=1.12,pad=189"
+wakeword_training/betty/clips_say_augmented/negative/heading_Daniel_aug00.wav,negative,heading,"augmented:g=0.85,pad=224"
+wakeword_training/betty/clips_say_augmented/negative/heading_Daniel_aug01.wav,negative,heading,"augmented:g=1.10,pad=154"
+wakeword_training/betty/clips_say_augmented/negative/heading_Daniel_aug02.wav,negative,heading,"augmented:g=1.00,pad=270"
+wakeword_training/betty/clips_say_augmented/negative/heading_Karen_aug00.wav,negative,heading,"augmented:g=0.72,pad=153"
+wakeword_training/betty/clips_say_augmented/negative/heading_Karen_aug01.wav,negative,heading,"augmented:g=1.15,pad=53"
+wakeword_training/betty/clips_say_augmented/negative/heading_Karen_aug02.wav,negative,heading,"augmented:g=1.15,pad=68"
+wakeword_training/betty/clips_say_augmented/negative/heading_Moira_aug00.wav,negative,heading,"augmented:g=0.84,pad=54"
+wakeword_training/betty/clips_say_augmented/negative/heading_Moira_aug01.wav,negative,heading,"augmented:g=1.06,pad=79"
+wakeword_training/betty/clips_say_augmented/negative/heading_Moira_aug02.wav,negative,heading,"augmented:g=0.85,pad=107"
+wakeword_training/betty/clips_say_augmented/negative/heading_Tessa_aug00.wav,negative,heading,"augmented:g=1.05,pad=104"
+wakeword_training/betty/clips_say_augmented/negative/heading_Tessa_aug01.wav,negative,heading,"augmented:g=1.04,pad=135"
+wakeword_training/betty/clips_say_augmented/negative/heading_Tessa_aug02.wav,negative,heading,"augmented:g=0.95,pad=128"
+wakeword_training/betty/clips_say_augmented/negative/fuel_state_Samantha_aug00.wav,negative,fuel state,"augmented:g=1.14,pad=26"
+wakeword_training/betty/clips_say_augmented/negative/fuel_state_Samantha_aug01.wav,negative,fuel state,"augmented:g=0.76,pad=216"
+wakeword_training/betty/clips_say_augmented/negative/fuel_state_Samantha_aug02.wav,negative,fuel state,"augmented:g=1.10,pad=22"
+wakeword_training/betty/clips_say_augmented/negative/fuel_state_Daniel_aug00.wav,negative,fuel state,"augmented:g=0.72,pad=66"
+wakeword_training/betty/clips_say_augmented/negative/fuel_state_Daniel_aug01.wav,negative,fuel state,"augmented:g=1.01,pad=134"
+wakeword_training/betty/clips_say_augmented/negative/fuel_state_Daniel_aug02.wav,negative,fuel state,"augmented:g=0.79,pad=226"
+wakeword_training/betty/clips_say_augmented/negative/fuel_state_Karen_aug00.wav,negative,fuel state,"augmented:g=0.97,pad=218"
+wakeword_training/betty/clips_say_augmented/negative/fuel_state_Karen_aug01.wav,negative,fuel state,"augmented:g=0.98,pad=57"
+wakeword_training/betty/clips_say_augmented/negative/fuel_state_Karen_aug02.wav,negative,fuel state,"augmented:g=0.75,pad=76"
+wakeword_training/betty/clips_say_augmented/negative/fuel_state_Moira_aug00.wav,negative,fuel state,"augmented:g=0.97,pad=189"
+wakeword_training/betty/clips_say_augmented/negative/fuel_state_Moira_aug01.wav,negative,fuel state,"augmented:g=0.99,pad=75"
+wakeword_training/betty/clips_say_augmented/negative/fuel_state_Moira_aug02.wav,negative,fuel state,"augmented:g=0.92,pad=21"
+wakeword_training/betty/clips_say_augmented/negative/fuel_state_Tessa_aug00.wav,negative,fuel state,"augmented:g=0.86,pad=20"
+wakeword_training/betty/clips_say_augmented/negative/fuel_state_Tessa_aug01.wav,negative,fuel state,"augmented:g=1.13,pad=107"
+wakeword_training/betty/clips_say_augmented/negative/fuel_state_Tessa_aug02.wav,negative,fuel state,"augmented:g=1.03,pad=52"
+wakeword_training/betty/clips_say_augmented/negative/gear_down_Samantha_aug00.wav,negative,gear down,"augmented:g=0.88,pad=208"
+wakeword_training/betty/clips_say_augmented/negative/gear_down_Samantha_aug01.wav,negative,gear down,"augmented:g=1.17,pad=79"
+wakeword_training/betty/clips_say_augmented/negative/gear_down_Samantha_aug02.wav,negative,gear down,"augmented:g=1.15,pad=121"
+wakeword_training/betty/clips_say_augmented/negative/gear_down_Daniel_aug00.wav,negative,gear down,"augmented:g=1.12,pad=90"
+wakeword_training/betty/clips_say_augmented/negative/gear_down_Daniel_aug01.wav,negative,gear down,"augmented:g=1.13,pad=12"
+wakeword_training/betty/clips_say_augmented/negative/gear_down_Daniel_aug02.wav,negative,gear down,"augmented:g=0.80,pad=170"
+wakeword_training/betty/clips_say_augmented/negative/gear_down_Karen_aug00.wav,negative,gear down,"augmented:g=1.08,pad=210"
+wakeword_training/betty/clips_say_augmented/negative/gear_down_Karen_aug01.wav,negative,gear down,"augmented:g=1.09,pad=127"
+wakeword_training/betty/clips_say_augmented/negative/gear_down_Karen_aug02.wav,negative,gear down,"augmented:g=0.84,pad=55"
+wakeword_training/betty/clips_say_augmented/negative/gear_down_Moira_aug00.wav,negative,gear down,"augmented:g=0.90,pad=19"
+wakeword_training/betty/clips_say_augmented/negative/gear_down_Moira_aug01.wav,negative,gear down,"augmented:g=1.11,pad=113"
+wakeword_training/betty/clips_say_augmented/negative/gear_down_Moira_aug02.wav,negative,gear down,"augmented:g=0.81,pad=235"
+wakeword_training/betty/clips_say_augmented/negative/gear_down_Tessa_aug00.wav,negative,gear down,"augmented:g=0.88,pad=116"
+wakeword_training/betty/clips_say_augmented/negative/gear_down_Tessa_aug01.wav,negative,gear down,"augmented:g=0.82,pad=98"
+wakeword_training/betty/clips_say_augmented/negative/gear_down_Tessa_aug02.wav,negative,gear down,"augmented:g=0.90,pad=142"
+wakeword_training/betty/clips_say_augmented/negative/master_arm_Samantha_aug00.wav,negative,master arm,"augmented:g=1.12,pad=142"
+wakeword_training/betty/clips_say_augmented/negative/master_arm_Samantha_aug01.wav,negative,master arm,"augmented:g=0.88,pad=260"
+wakeword_training/betty/clips_say_augmented/negative/master_arm_Samantha_aug02.wav,negative,master arm,"augmented:g=0.90,pad=274"
+wakeword_training/betty/clips_say_augmented/negative/master_arm_Daniel_aug00.wav,negative,master arm,"augmented:g=0.87,pad=14"
+wakeword_training/betty/clips_say_augmented/negative/master_arm_Daniel_aug01.wav,negative,master arm,"augmented:g=0.77,pad=133"
+wakeword_training/betty/clips_say_augmented/negative/master_arm_Daniel_aug02.wav,negative,master arm,"augmented:g=0.80,pad=135"
+wakeword_training/betty/clips_say_augmented/negative/master_arm_Karen_aug00.wav,negative,master arm,"augmented:g=0.74,pad=222"
+wakeword_training/betty/clips_say_augmented/negative/master_arm_Karen_aug01.wav,negative,master arm,"augmented:g=0.88,pad=160"
+wakeword_training/betty/clips_say_augmented/negative/master_arm_Karen_aug02.wav,negative,master arm,"augmented:g=0.92,pad=261"
+wakeword_training/betty/clips_say_augmented/negative/master_arm_Moira_aug00.wav,negative,master arm,"augmented:g=0.77,pad=97"
+wakeword_training/betty/clips_say_augmented/negative/master_arm_Moira_aug01.wav,negative,master arm,"augmented:g=0.84,pad=223"
+wakeword_training/betty/clips_say_augmented/negative/master_arm_Moira_aug02.wav,negative,master arm,"augmented:g=0.72,pad=275"
+wakeword_training/betty/clips_say_augmented/negative/master_arm_Tessa_aug00.wav,negative,master arm,"augmented:g=1.04,pad=100"
+wakeword_training/betty/clips_say_augmented/negative/master_arm_Tessa_aug01.wav,negative,master arm,"augmented:g=0.89,pad=35"
+wakeword_training/betty/clips_say_augmented/negative/master_arm_Tessa_aug02.wav,negative,master arm,"augmented:g=1.16,pad=169"
+wakeword_training/betty/clips_say_augmented/negative/missile_warning_Samantha_aug00.wav,negative,missile warning,"augmented:g=1.01,pad=63"
+wakeword_training/betty/clips_say_augmented/negative/missile_warning_Samantha_aug01.wav,negative,missile warning,"augmented:g=1.05,pad=153"
+wakeword_training/betty/clips_say_augmented/negative/missile_warning_Samantha_aug02.wav,negative,missile warning,"augmented:g=0.95,pad=209"
+wakeword_training/betty/clips_say_augmented/negative/missile_warning_Daniel_aug00.wav,negative,missile warning,"augmented:g=0.87,pad=151"
+wakeword_training/betty/clips_say_augmented/negative/missile_warning_Daniel_aug01.wav,negative,missile warning,"augmented:g=0.98,pad=98"
+wakeword_training/betty/clips_say_augmented/negative/missile_warning_Daniel_aug02.wav,negative,missile warning,"augmented:g=0.91,pad=194"
+wakeword_training/betty/clips_say_augmented/negative/missile_warning_Karen_aug00.wav,negative,missile warning,"augmented:g=1.03,pad=89"
+wakeword_training/betty/clips_say_augmented/negative/missile_warning_Karen_aug01.wav,negative,missile warning,"augmented:g=1.00,pad=154"
+wakeword_training/betty/clips_say_augmented/negative/missile_warning_Karen_aug02.wav,negative,missile warning,"augmented:g=0.91,pad=0"
+wakeword_training/betty/clips_say_augmented/negative/missile_warning_Moira_aug00.wav,negative,missile warning,"augmented:g=0.86,pad=107"
+wakeword_training/betty/clips_say_augmented/negative/missile_warning_Moira_aug01.wav,negative,missile warning,"augmented:g=0.92,pad=164"
+wakeword_training/betty/clips_say_augmented/negative/missile_warning_Moira_aug02.wav,negative,missile warning,"augmented:g=0.93,pad=226"
+wakeword_training/betty/clips_say_augmented/negative/missile_warning_Tessa_aug00.wav,negative,missile warning,"augmented:g=1.03,pad=261"
+wakeword_training/betty/clips_say_augmented/negative/missile_warning_Tessa_aug01.wav,negative,missile warning,"augmented:g=0.94,pad=86"
+wakeword_training/betty/clips_say_augmented/negative/missile_warning_Tessa_aug02.wav,negative,missile warning,"augmented:g=1.02,pad=145"
+wakeword_training/betty/clips_say_augmented/negative/radio_check_Samantha_aug00.wav,negative,radio check,"augmented:g=0.96,pad=171"
+wakeword_training/betty/clips_say_augmented/negative/radio_check_Samantha_aug01.wav,negative,radio check,"augmented:g=0.76,pad=120"
+wakeword_training/betty/clips_say_augmented/negative/radio_check_Samantha_aug02.wav,negative,radio check,"augmented:g=1.03,pad=115"
+wakeword_training/betty/clips_say_augmented/negative/radio_check_Daniel_aug00.wav,negative,radio check,"augmented:g=1.09,pad=75"
+wakeword_training/betty/clips_say_augmented/negative/radio_check_Daniel_aug01.wav,negative,radio check,"augmented:g=0.73,pad=125"
+wakeword_training/betty/clips_say_augmented/negative/radio_check_Daniel_aug02.wav,negative,radio check,"augmented:g=1.17,pad=37"
+wakeword_training/betty/clips_say_augmented/negative/radio_check_Karen_aug00.wav,negative,radio check,"augmented:g=0.93,pad=99"
+wakeword_training/betty/clips_say_augmented/negative/radio_check_Karen_aug01.wav,negative,radio check,"augmented:g=1.05,pad=196"
+wakeword_training/betty/clips_say_augmented/negative/radio_check_Karen_aug02.wav,negative,radio check,"augmented:g=0.95,pad=124"
+wakeword_training/betty/clips_say_augmented/negative/radio_check_Moira_aug00.wav,negative,radio check,"augmented:g=0.79,pad=2"
+wakeword_training/betty/clips_say_augmented/negative/radio_check_Moira_aug01.wav,negative,radio check,"augmented:g=1.13,pad=54"
+wakeword_training/betty/clips_say_augmented/negative/radio_check_Moira_aug02.wav,negative,radio check,"augmented:g=1.08,pad=112"
+wakeword_training/betty/clips_say_augmented/negative/radio_check_Tessa_aug00.wav,negative,radio check,"augmented:g=0.80,pad=265"
+wakeword_training/betty/clips_say_augmented/negative/radio_check_Tessa_aug01.wav,negative,radio check,"augmented:g=0.93,pad=127"
+wakeword_training/betty/clips_say_augmented/negative/radio_check_Tessa_aug02.wav,negative,radio check,"augmented:g=1.14,pad=62"
+wakeword_training/betty/clips_say_augmented/negative/tower_request_takeoff_Samantha_aug00.wav,negative,tower request takeoff,"augmented:g=0.93,pad=237"
+wakeword_training/betty/clips_say_augmented/negative/tower_request_takeoff_Samantha_aug01.wav,negative,tower request takeoff,"augmented:g=1.03,pad=162"
+wakeword_training/betty/clips_say_augmented/negative/tower_request_takeoff_Samantha_aug02.wav,negative,tower request takeoff,"augmented:g=1.16,pad=226"
+wakeword_training/betty/clips_say_augmented/negative/tower_request_takeoff_Daniel_aug00.wav,negative,tower request takeoff,"augmented:g=1.00,pad=258"
+wakeword_training/betty/clips_say_augmented/negative/tower_request_takeoff_Daniel_aug01.wav,negative,tower request takeoff,"augmented:g=0.92,pad=280"
+wakeword_training/betty/clips_say_augmented/negative/tower_request_takeoff_Daniel_aug02.wav,negative,tower request takeoff,"augmented:g=0.93,pad=81"
+wakeword_training/betty/clips_say_augmented/negative/tower_request_takeoff_Karen_aug00.wav,negative,tower request takeoff,"augmented:g=1.06,pad=243"
+wakeword_training/betty/clips_say_augmented/negative/tower_request_takeoff_Karen_aug01.wav,negative,tower request takeoff,"augmented:g=0.93,pad=126"
+wakeword_training/betty/clips_say_augmented/negative/tower_request_takeoff_Karen_aug02.wav,negative,tower request takeoff,"augmented:g=1.11,pad=141"
+wakeword_training/betty/clips_say_augmented/negative/tower_request_takeoff_Moira_aug00.wav,negative,tower request takeoff,"augmented:g=1.07,pad=266"
+wakeword_training/betty/clips_say_augmented/negative/tower_request_takeoff_Moira_aug01.wav,negative,tower request takeoff,"augmented:g=0.94,pad=122"
+wakeword_training/betty/clips_say_augmented/negative/tower_request_takeoff_Moira_aug02.wav,negative,tower request takeoff,"augmented:g=0.85,pad=39"
+wakeword_training/betty/clips_say_augmented/negative/tower_request_takeoff_Tessa_aug00.wav,negative,tower request takeoff,"augmented:g=1.05,pad=120"
+wakeword_training/betty/clips_say_augmented/negative/tower_request_takeoff_Tessa_aug01.wav,negative,tower request takeoff,"augmented:g=0.84,pad=163"
+wakeword_training/betty/clips_say_augmented/negative/tower_request_takeoff_Tessa_aug02.wav,negative,tower request takeoff,"augmented:g=1.13,pad=41"
+wakeword_training/betty/clips_say_augmented/negative/fox_three_Samantha_aug00.wav,negative,fox three,"augmented:g=0.78,pad=118"
+wakeword_training/betty/clips_say_augmented/negative/fox_three_Samantha_aug01.wav,negative,fox three,"augmented:g=0.90,pad=78"
+wakeword_training/betty/clips_say_augmented/negative/fox_three_Samantha_aug02.wav,negative,fox three,"augmented:g=1.04,pad=32"
+wakeword_training/betty/clips_say_augmented/negative/fox_three_Daniel_aug00.wav,negative,fox three,"augmented:g=0.91,pad=169"
+wakeword_training/betty/clips_say_augmented/negative/fox_three_Daniel_aug01.wav,negative,fox three,"augmented:g=0.97,pad=212"
+wakeword_training/betty/clips_say_augmented/negative/fox_three_Daniel_aug02.wav,negative,fox three,"augmented:g=0.75,pad=215"
+wakeword_training/betty/clips_say_augmented/negative/fox_three_Karen_aug00.wav,negative,fox three,"augmented:g=0.90,pad=10"
+wakeword_training/betty/clips_say_augmented/negative/fox_three_Karen_aug01.wav,negative,fox three,"augmented:g=1.11,pad=194"
+wakeword_training/betty/clips_say_augmented/negative/fox_three_Karen_aug02.wav,negative,fox three,"augmented:g=0.94,pad=180"
+wakeword_training/betty/clips_say_augmented/negative/fox_three_Moira_aug00.wav,negative,fox three,"augmented:g=0.86,pad=199"
+wakeword_training/betty/clips_say_augmented/negative/fox_three_Moira_aug01.wav,negative,fox three,"augmented:g=1.11,pad=214"
+wakeword_training/betty/clips_say_augmented/negative/fox_three_Moira_aug02.wav,negative,fox three,"augmented:g=0.97,pad=279"
+wakeword_training/betty/clips_say_augmented/negative/fox_three_Tessa_aug00.wav,negative,fox three,"augmented:g=1.09,pad=112"
+wakeword_training/betty/clips_say_augmented/negative/fox_three_Tessa_aug01.wav,negative,fox three,"augmented:g=0.94,pad=139"
+wakeword_training/betty/clips_say_augmented/negative/fox_three_Tessa_aug02.wav,negative,fox three,"augmented:g=0.92,pad=14"
+wakeword_training/betty/clips_say_augmented/negative/rifle_Samantha_aug00.wav,negative,rifle,"augmented:g=0.90,pad=207"
+wakeword_training/betty/clips_say_augmented/negative/rifle_Samantha_aug01.wav,negative,rifle,"augmented:g=1.05,pad=239"
+wakeword_training/betty/clips_say_augmented/negative/rifle_Samantha_aug02.wav,negative,rifle,"augmented:g=1.14,pad=273"
+wakeword_training/betty/clips_say_augmented/negative/rifle_Daniel_aug00.wav,negative,rifle,"augmented:g=0.73,pad=201"
+wakeword_training/betty/clips_say_augmented/negative/rifle_Daniel_aug01.wav,negative,rifle,"augmented:g=0.99,pad=13"
+wakeword_training/betty/clips_say_augmented/negative/rifle_Daniel_aug02.wav,negative,rifle,"augmented:g=0.76,pad=219"
+wakeword_training/betty/clips_say_augmented/negative/rifle_Karen_aug00.wav,negative,rifle,"augmented:g=0.78,pad=236"
+wakeword_training/betty/clips_say_augmented/negative/rifle_Karen_aug01.wav,negative,rifle,"augmented:g=0.80,pad=133"
+wakeword_training/betty/clips_say_augmented/negative/rifle_Karen_aug02.wav,negative,rifle,"augmented:g=0.89,pad=108"
+wakeword_training/betty/clips_say_augmented/negative/rifle_Moira_aug00.wav,negative,rifle,"augmented:g=0.93,pad=172"
+wakeword_training/betty/clips_say_augmented/negative/rifle_Moira_aug01.wav,negative,rifle,"augmented:g=1.07,pad=194"
+wakeword_training/betty/clips_say_augmented/negative/rifle_Moira_aug02.wav,negative,rifle,"augmented:g=0.85,pad=215"
+wakeword_training/betty/clips_say_augmented/negative/rifle_Tessa_aug00.wav,negative,rifle,"augmented:g=0.84,pad=41"
+wakeword_training/betty/clips_say_augmented/negative/rifle_Tessa_aug01.wav,negative,rifle,"augmented:g=0.94,pad=276"
+wakeword_training/betty/clips_say_augmented/negative/rifle_Tessa_aug02.wav,negative,rifle,"augmented:g=0.74,pad=179"
+wakeword_training/betty/clips_say_augmented/negative/pickle_Samantha_aug00.wav,negative,pickle,"augmented:g=0.82,pad=35"
+wakeword_training/betty/clips_say_augmented/negative/pickle_Samantha_aug01.wav,negative,pickle,"augmented:g=1.08,pad=20"
+wakeword_training/betty/clips_say_augmented/negative/pickle_Samantha_aug02.wav,negative,pickle,"augmented:g=1.07,pad=126"
+wakeword_training/betty/clips_say_augmented/negative/pickle_Daniel_aug00.wav,negative,pickle,"augmented:g=0.81,pad=10"
+wakeword_training/betty/clips_say_augmented/negative/pickle_Daniel_aug01.wav,negative,pickle,"augmented:g=1.01,pad=122"
+wakeword_training/betty/clips_say_augmented/negative/pickle_Daniel_aug02.wav,negative,pickle,"augmented:g=0.78,pad=58"
+wakeword_training/betty/clips_say_augmented/negative/pickle_Karen_aug00.wav,negative,pickle,"augmented:g=0.98,pad=111"
+wakeword_training/betty/clips_say_augmented/negative/pickle_Karen_aug01.wav,negative,pickle,"augmented:g=0.93,pad=131"
+wakeword_training/betty/clips_say_augmented/negative/pickle_Karen_aug02.wav,negative,pickle,"augmented:g=1.07,pad=85"
+wakeword_training/betty/clips_say_augmented/negative/pickle_Moira_aug00.wav,negative,pickle,"augmented:g=1.00,pad=58"
+wakeword_training/betty/clips_say_augmented/negative/pickle_Moira_aug01.wav,negative,pickle,"augmented:g=1.08,pad=83"
+wakeword_training/betty/clips_say_augmented/negative/pickle_Moira_aug02.wav,negative,pickle,"augmented:g=1.16,pad=55"
+wakeword_training/betty/clips_say_augmented/negative/pickle_Tessa_aug00.wav,negative,pickle,"augmented:g=0.99,pad=159"
+wakeword_training/betty/clips_say_augmented/negative/pickle_Tessa_aug01.wav,negative,pickle,"augmented:g=0.98,pad=192"
+wakeword_training/betty/clips_say_augmented/negative/pickle_Tessa_aug02.wav,negative,pickle,"augmented:g=0.90,pad=101"

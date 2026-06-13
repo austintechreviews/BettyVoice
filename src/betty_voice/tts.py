@@ -5,9 +5,11 @@ Provides a pluggable TTS backend system with NullTTS (no-op) and PiperTTS
 """
 
 import os
+import queue
 import shutil
 import subprocess
 import tempfile
+import threading
 from abc import ABC, abstractmethod
 from pathlib import Path
 
@@ -17,6 +19,9 @@ from .config import TTSConfig
 class TTSBackend(ABC):
     @abstractmethod
     def speak(self, text: str) -> None: ...
+
+    def close(self) -> None:
+        pass
 
 
 class NullTTS(TTSBackend):
@@ -96,17 +101,24 @@ class PiperTTS(TTSBackend):
             cmd = [
                 self._piper_path,
                 "--model", self._model_path,
+                "--length-scale", str(self._cfg.length_scale),
                 "--output-file", wav_path,
             ]
             if self._config_path:
                 cmd += ["--config", self._config_path]
 
-            subprocess.run(
+            result = subprocess.run(
                 cmd,
                 input=text.encode("utf-8"),
                 capture_output=True,
                 timeout=30,
             )
+            if result.returncode != 0:
+                detail = result.stderr.decode("utf-8", errors="replace").strip()
+                print(f"[tts] Piper failed with exit code {result.returncode}.")
+                if detail:
+                    print(f"[tts] {detail}")
+                return
 
             if self._player == "sounddevice":
                 import soundfile as sf
@@ -115,18 +127,54 @@ class PiperTTS(TTSBackend):
                 sd.play(data, sr)
                 sd.wait()
             else:
-                subprocess.run(
+                player_result = subprocess.run(
                     [self._player, wav_path],
                     capture_output=True,
                     timeout=30,
                 )
-        except Exception:
-            pass
+                if player_result.returncode != 0:
+                    detail = player_result.stderr.decode(
+                        "utf-8", errors="replace"
+                    ).strip()
+                    print(
+                        f"[tts] Audio player failed with exit code "
+                        f"{player_result.returncode}."
+                    )
+                    if detail:
+                        print(f"[tts] {detail}")
+        except Exception as e:
+            print(f"[tts] Speech output failed: {e}")
         finally:
             try:
                 os.unlink(wav_path)
             except OSError:
                 pass
+
+
+class QueuedTTS(TTSBackend):
+    """Serialize speech in a worker so command handling stays responsive."""
+
+    def __init__(self, backend: TTSBackend):
+        self._backend = backend
+        self._queue: queue.Queue[str | None] = queue.Queue()
+        self._thread = threading.Thread(target=self._run, daemon=True)
+        self._thread.start()
+
+    def speak(self, text: str) -> None:
+        if text:
+            self._queue.put(text)
+
+    def close(self) -> None:
+        self._queue.put(None)
+        self._thread.join(timeout=2.0)
+        self._backend.close()
+
+    def _run(self) -> None:
+        while True:
+            text = self._queue.get()
+            if text is None:
+                return
+            self._backend.speak(text)
 
 
 def _shorten_for_speech(text: str) -> str:
@@ -150,7 +198,7 @@ def get_tts(config: TTSConfig = None) -> TTSBackend:
 
     tts = PiperTTS(config)
     if tts.is_available():
-        return tts
+        return QueuedTTS(tts)
 
     print("[tts] Piper TTS unavailable. Responses will be printed only.")
     return NullTTS()

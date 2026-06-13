@@ -1,0 +1,25 @@
+{
+  "positive": [
+    "betty",
+    "hey betty",
+    "okay betty",
+    "betty speed",
+    "betty status",
+    "betty altitude"
+  ],
+  "negative": [
+    "speed",
+    "status",
+    "altitude",
+    "heading",
+    "fuel state",
+    "gear down",
+    "master arm",
+    "missile warning",
+    "radio check",
+    "tower request takeoff",
+    "fox three",
+    "rifle",
+    "pickle"
+  ]
+}

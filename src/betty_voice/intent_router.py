@@ -3,11 +3,20 @@
 from . import number_words as nw
 from .state_store import StateStore
 from . import unit_conversions as uc
+from .llm_formatter import LocalLLMFormatter
+from .vtol_knowledge import VTOLKnowledgeBase
 
 
 class IntentRouter:
-    def __init__(self, state_store: StateStore):
+    def __init__(
+        self,
+        state_store: StateStore,
+        knowledge_base: VTOLKnowledgeBase = None,
+        llm_formatter: LocalLLMFormatter = None,
+    ):
         self._state = state_store
+        self._knowledge = knowledge_base or VTOLKnowledgeBase()
+        self._formatter = llm_formatter
 
     def handle(self, command: str) -> str:
         cmd = command.strip().lower()
@@ -40,6 +49,11 @@ class IntentRouter:
             return self._fuel()
         if cmd in ("warnings", "warning"):
             return self._warnings()
+        knowledge_answer = self._knowledge.answer(command, telemetry=self._state.packet)
+        if knowledge_answer:
+            if self._formatter:
+                return self._formatter.format_answer(command, knowledge_answer)
+            return knowledge_answer
         return f"Unknown command: {cmd}. Type help."
 
     def _offline(self) -> bool:
@@ -151,5 +165,7 @@ class IntentRouter:
     def _help(self) -> str:
         return (
             "Commands: altitude, speed, heading, engines, apu, gear, "
-            "weapon, countermeasures, fuel, warnings, status, help, quit."
+            "weapon, countermeasures, fuel, warnings, status, help. "
+            "Knowledge: ask for aircraft notes, weapon notes, performance graphs, "
+            "tutorials, or loadout recommendations. Quit exits."
         )

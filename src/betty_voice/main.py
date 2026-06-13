@@ -1,16 +1,23 @@
 """BettyVoice main entry point - terminal dashboard + command loop."""
 
 import argparse
+import queue
+import threading
 
 from .config import Config
 from .state_store import StateStore
 from .telemetry_receiver import TelemetryReceiver
 from .intent_router import IntentRouter
+from .llm_formatter import LocalLLMFormatter
 from .rule_engine import RuleEngine
 from .tts import get_tts, respond
 
 
+CALL_OUT_POLL_SECONDS = 0.25
+
+
 def _build_config() -> tuple[Config, argparse.Namespace]:
+    defaults = Config()
     parser = argparse.ArgumentParser(description="BettyVoice - VTOL VR voice assistant")
     parser.add_argument(
         "--voice",
@@ -41,10 +48,19 @@ def _build_config() -> tuple[Config, argparse.Namespace]:
         help="Enable wake-word detection (requires openwakeword, sounddevice, faster-whisper)",
     )
     parser.add_argument(
+        "--wake-word-model",
+        type=str,
+        default=defaults.wake_word.model,
+        help=(
+            "openWakeWord model name or path to a custom .onnx/.tflite model "
+            f"(default: {defaults.wake_word.model})"
+        ),
+    )
+    parser.add_argument(
         "--wake-word-threshold",
         type=float,
-        default=0.5,
-        help="Wake-word detection threshold (default: 0.5)",
+        default=defaults.wake_word.threshold,
+        help=f"Wake-word detection threshold (default: {defaults.wake_word.threshold})",
     )
     parser.add_argument(
         "--wake-word-cooldown",
@@ -88,14 +104,48 @@ def _build_config() -> tuple[Config, argparse.Namespace]:
         default=None,
         help="Path to Piper voice model (.onnx file)",
     )
+    parser.add_argument(
+        "--tts-speed",
+        type=float,
+        default=defaults.tts.length_scale,
+        help=(
+            "Piper speech speed as length scale "
+            f"(default: {defaults.tts.length_scale}; lower is faster)"
+        ),
+    )
+    parser.add_argument(
+        "--llm",
+        action="store_true",
+        default=None,
+        help="Enable local LLM formatting/routing via OpenAI-compatible API",
+    )
+    parser.add_argument(
+        "--no-llm",
+        action="store_false",
+        dest="llm",
+        help="Disable local LLM formatting/routing",
+    )
+    parser.add_argument(
+        "--llm-base-url",
+        type=str,
+        default=defaults.llm.base_url,
+        help=f"Local LLM OpenAI-compatible base URL (default: {defaults.llm.base_url})",
+    )
+    parser.add_argument(
+        "--llm-model",
+        type=str,
+        default=defaults.llm.model,
+        help=f"Local LLM model name (default: {defaults.llm.model})",
+    )
     args, _ = parser.parse_known_args()
 
-    config = Config()
+    config = defaults
     config.voice.enabled = args.voice
     config.voice.record_seconds = args.voice_record_seconds
     config.voice.device = args.voice_device
     config.voice.compute_type = args.voice_compute_type
     config.wake_word.enabled = args.wake_word
+    config.wake_word.model = args.wake_word_model
     config.wake_word.threshold = args.wake_word_threshold
     config.wake_word.cooldown_seconds = args.wake_word_cooldown
     config.wake_phrase.enabled = args.wake_word_mode == "whisper"
@@ -104,6 +154,10 @@ def _build_config() -> tuple[Config, argparse.Namespace]:
     config.tts.enabled = args.tts and not args.no_tts
     config.tts.engine = args.tts_engine
     config.tts.voice_model_path = args.tts_voice
+    config.tts.length_scale = args.tts_speed
+    config.llm.enabled = config.llm.enabled if args.llm is None else args.llm
+    config.llm.base_url = args.llm_base_url
+    config.llm.model = args.llm_model
     return config, args
 
 
@@ -118,36 +172,118 @@ def _init_speech(config) -> object | None:
         return None
 
 
-def _handle_voice_input(speech: tuple, config, router) -> str | None:
-    record_audio, transcribe_fn, normalize = speech
-    print(f"[voice] Recording for {config.voice.record_seconds}s...")
-    try:
-        audio = record_audio(duration=config.voice.record_seconds)
-    except Exception as e:
-        return f"[voice] Recording failed: {e}"
-    print("[voice] Transcribing...")
-    try:
-        raw = transcribe_fn(
-            audio,
-            model_name=config.voice.model,
-            device=config.voice.device,
-            compute_type=config.voice.compute_type,
-        )
-    except Exception as e:
-        msg = f"[voice] Transcription failed: {e}"
-        if "libcublas" in str(e) or "cublas" in str(e).lower():
-            msg += (
-                "\n  Hint: Install cuBLAS or use --voice-device cpu to run on CPU."
+def _transcription_error_message(prefix: str, error: Exception) -> str:
+    msg = f"[{prefix}] Transcription failed: {error}"
+    if "libcublas" in str(error) or "cublas" in str(error).lower():
+        msg += "\n  Hint: Install cuBLAS or use --voice-device cpu to run on CPU."
+    return msg
+
+
+class SpeechCommandPipeline:
+    """Shared record/transcribe/route path for all speech command modes."""
+
+    def __init__(self, speech: tuple, config: Config, router, tts=None):
+        self._record_audio, self._transcribe, self._normalize = speech
+        self._config = config
+        self._router = router
+        self._tts = tts
+
+    def record_transcribe_route(
+        self,
+        duration: float,
+        prefix: str = "voice",
+        speak: bool = False,
+    ) -> str | None:
+        print(f"[{prefix}] Recording for {duration}s...")
+        try:
+            audio = self._record_audio(duration=duration)
+        except Exception as e:
+            return self._emit(f"[{prefix}] Recording failed: {e}", speak)
+
+        print(f"[{prefix}] Transcribing...")
+        try:
+            raw = self._transcribe(
+                audio,
+                model_name=self._config.voice.model,
+                device=self._config.voice.device,
+                compute_type=self._config.voice.compute_type,
             )
-        return msg
-    if not raw:
-        return "[voice] No speech detected."
-    print(f"[voice] Recognized: {raw}")
-    normalized = normalize(raw)
-    if normalized != raw:
-        print(f"[voice] Normalized: {normalized}")
-    result = router.handle(normalized)
-    return result
+        except Exception as e:
+            return self._emit(_transcription_error_message(prefix, e), speak)
+
+        return self.route_transcript(raw, prefix=prefix, speak=speak)
+
+    def route_transcript(
+        self,
+        raw: str,
+        prefix: str = "voice",
+        speak: bool = False,
+    ) -> str | None:
+        if not raw:
+            return self._emit(f"[{prefix}] No speech detected.", speak)
+
+        print(f"[{prefix}] Recognized: {raw}")
+        normalized = self._normalize(raw)
+        return self.route_normalized(normalized, raw=raw, prefix=prefix, speak=speak)
+
+    def route_normalized(
+        self,
+        normalized: str,
+        raw: str | None = None,
+        prefix: str = "voice",
+        speak: bool = False,
+    ) -> str | None:
+        if not normalized:
+            return None
+
+        if raw is not None and normalized != raw:
+            print(f"[{prefix}] Normalized: {normalized}")
+
+        result = self._router.handle(normalized)
+        return self._emit(result, speak)
+
+    def _emit(self, result: str | None, speak: bool) -> str | None:
+        if result and speak and result != "__QUIT__":
+            respond(result, self._tts)
+        return result
+
+
+def _handle_voice_input(
+    pipeline_or_speech: SpeechCommandPipeline | tuple,
+    config,
+    router=None,
+) -> str | None:
+    pipeline = pipeline_or_speech
+    if not isinstance(pipeline, SpeechCommandPipeline):
+        if router is None:
+            raise TypeError("router is required when passing raw speech components")
+        pipeline = SpeechCommandPipeline(pipeline, config, router)
+
+    return pipeline.record_transcribe_route(
+        duration=config.voice.record_seconds,
+        prefix="voice",
+    )
+
+
+def _callout_loop(rules, tts, stop_event: threading.Event) -> None:
+    while not stop_event.is_set():
+        for callout in rules.check():
+            respond(callout, tts)
+        stop_event.wait(CALL_OUT_POLL_SECONDS)
+
+
+def _input_loop(input_queue: queue.Queue[str | None], stop_event: threading.Event) -> None:
+    while not stop_event.is_set():
+        try:
+            cmd = input()
+        except EOFError:
+            input_queue.put(None)
+            return
+        input_queue.put(cmd)
+
+
+def _prompt_for_status(state: StateStore) -> None:
+    print(f"[{state.get_status_label()}] > ", end="", flush=True)
 
 
 def _init_wake_word(config, router, tts) -> object | None:
@@ -176,37 +312,15 @@ def _init_wake_word(config, router, tts) -> object | None:
         print('  Install with: pip install "betty-voice[wakeword]"')
         return None
 
-    record_audio_fn, transcribe_fn, normalize_fn = speech
+    pipeline = SpeechCommandPipeline(speech, config, router, tts)
 
     def on_detected():
         print("\n[wakeword] Wake word detected.")
-        try:
-            audio = record_audio_fn(
-                duration=config.wake_word.command_record_seconds
-            )
-        except Exception as e:
-            print(f"[wakeword] Recording failed: {e}")
-            return
-        try:
-            raw = transcribe_fn(
-                audio,
-                model_name=config.voice.model,
-                device=config.voice.device,
-                compute_type=config.voice.compute_type,
-            )
-        except Exception as e:
-            print(f"[wakeword] Transcription failed: {e}")
-            return
-        if not raw:
-            print("[wakeword] No speech detected.")
-            return
-        print(f"[wakeword] Recognized: {raw}")
-        normalized = normalize_fn(raw)
-        if normalized != raw:
-            print(f"[wakeword] Normalized: {normalized}")
-        result = router.handle(normalized)
-        if result:
-            respond(result, tts)
+        pipeline.record_transcribe_route(
+            duration=config.wake_word.command_record_seconds,
+            prefix="wakeword",
+            speak=True,
+        )
 
     listener = WakeWordListener(
         model=config.wake_word.model,
@@ -243,13 +357,10 @@ def _init_wake_phrase(config, router, tts) -> object | None:
         print("[wakephrase] wake_phrase module not found.")
         return None
 
+    pipeline = SpeechCommandPipeline(speech, config, router, tts)
+
     def on_command(normalized: str):
-        if not normalized:
-            return
-        print(normalized)
-        result = router.handle(normalized)
-        if result:
-            respond(result, tts)
+        pipeline.route_normalized(normalized, prefix="wakephrase", speak=True)
 
     listener = WakePhraseListener(
         speech_components=speech,
@@ -278,15 +389,33 @@ def main(config: Config = None) -> None:
         host=config.telemetry.host,
         port=config.telemetry.port,
     )
-    router = IntentRouter(state_store=state)
+    formatter = LocalLLMFormatter(config.llm) if config.llm.enabled else None
+    router = IntentRouter(state_store=state, llm_formatter=formatter)
     rules = RuleEngine(state_store=state)
     tts = get_tts(config.tts)
 
     speech = _init_speech(config) if config.voice.enabled else None
+    voice_pipeline = (
+        SpeechCommandPipeline(speech, config, router, tts) if speech else None
+    )
     wake_word_listener = _init_wake_word(config, router, tts)
     wake_phrase_listener = _init_wake_phrase(config, router, tts)
 
     receiver.start()
+    stop_event = threading.Event()
+    input_queue: queue.Queue[str | None] = queue.Queue()
+    callout_thread = threading.Thread(
+        target=_callout_loop,
+        args=(rules, tts, stop_event),
+        daemon=True,
+    )
+    input_thread = threading.Thread(
+        target=_input_loop,
+        args=(input_queue, stop_event),
+        daemon=True,
+    )
+    callout_thread.start()
+    input_thread.start()
 
     print("BettyVoice v0.2")
     print(f"Listening on {config.telemetry.host}:{config.telemetry.port}")
@@ -301,28 +430,27 @@ def main(config: Config = None) -> None:
         print("Voice input disabled. Use --voice to enable.")
     if not config.tts.enabled:
         print("TTS disabled. Use --tts to enable.")
+    _prompt_for_status(state)
 
     try:
         while True:
-            callouts = rules.check()
-            for c in callouts:
-                respond(c, tts)
-
-            status = state.get_status_label()
-            prompt = f"[{status}] > "
-
             try:
-                cmd = input(prompt)
-            except EOFError:
+                cmd = input_queue.get(timeout=0.1)
+            except queue.Empty:
+                continue
+
+            if cmd is None:
                 break
 
             if not cmd.strip():
+                _prompt_for_status(state)
                 continue
 
-            if speech and cmd.strip().lower() == "v":
-                result = _handle_voice_input(speech, config, router)
+            if voice_pipeline and cmd.strip().lower() == "v":
+                result = _handle_voice_input(voice_pipeline, config)
                 if result and result != "__QUIT__":
                     respond(result, tts)
+                _prompt_for_status(state)
                 continue
 
             result = router.handle(cmd)
@@ -331,15 +459,19 @@ def main(config: Config = None) -> None:
 
             if result:
                 respond(result, tts)
+            _prompt_for_status(state)
 
     except KeyboardInterrupt:
         print()
     finally:
+        stop_event.set()
         if wake_phrase_listener:
             wake_phrase_listener.stop()
         if wake_word_listener:
             wake_word_listener.stop()
         receiver.stop()
+        if hasattr(tts, "close"):
+            tts.close()
         print("BettyVoice stopped.")
 
 

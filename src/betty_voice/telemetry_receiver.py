@@ -3,18 +3,23 @@
 import json
 import socket
 import threading
-from typing import Optional
+from typing import Callable, Optional
 
 from .state_store import StateStore
 
 
 class TelemetryReceiver:
     def __init__(
-        self, state_store: StateStore, host: str = "127.0.0.1", port: int = 47777
+        self,
+        state_store: StateStore,
+        host: str = "127.0.0.1",
+        port: int = 47777,
+        on_packet: Optional[Callable[[dict], None]] = None,
     ):
         self._state = state_store
         self._host = host
         self._port = port
+        self._on_packet = on_packet
         self._sock: Optional[socket.socket] = None
         self._thread: Optional[threading.Thread] = None
         self._running = False
@@ -50,5 +55,7 @@ class TelemetryReceiver:
             packet = json.loads(data.decode("utf-8"))
             if isinstance(packet, dict):
                 self._state.update(packet)
+                if self._on_packet:
+                    self._on_packet(packet)
         except (json.JSONDecodeError, UnicodeDecodeError):
             pass

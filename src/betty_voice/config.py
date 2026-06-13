@@ -35,8 +35,8 @@ class VoiceConfig:
 class WakeWordConfig:
     enabled: bool = False
     engine: str = "openwakeword"
-    model: str = "hey_jarvis"
-    threshold: float = 0.5
+    model: str = "wakeword_training/livekit_output/betty/betty.onnx"
+    threshold: float = 0.8
     cooldown_seconds: float = 2.0
     command_record_seconds: float = 3.0
 
@@ -58,6 +58,17 @@ class TTSConfig:
     enabled: bool = False
     engine: str = "piper"
     voice_model_path: Optional[str] = None
+    length_scale: float = 1.0
+
+
+@dataclass
+class LLMConfig:
+    enabled: bool = True
+    base_url: str = "http://localhost:1234/v1"
+    model: str = "qwen3.5-0.8b-optiq"
+    timeout_seconds: float = 8.0
+    max_tokens: int = 180
+    temperature: float = 0.1
 
 
 @dataclass
@@ -68,6 +79,7 @@ class Config:
     wake_word: WakeWordConfig = None
     wake_phrase: WakePhraseConfig = None
     tts: TTSConfig = None
+    llm: LLMConfig = None
 
     def __post_init__(self):
         if self.telemetry is None:
@@ -82,6 +94,8 @@ class Config:
             self.wake_phrase = WakePhraseConfig()
         if self.tts is None:
             self.tts = TTSConfig()
+        if self.llm is None:
+            self.llm = LLMConfig()
 
 
 DEFAULT_CONFIG = Config()

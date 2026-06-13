@@ -4,13 +4,16 @@ import importlib
 from betty_voice.config import Config, WakeWordConfig
 
 
+DEFAULT_BETTY_WAKE_MODEL = "wakeword_training/livekit_output/betty/betty.onnx"
+
+
 def test_wake_word_config_defaults():
     config = Config()
     assert config.wake_word is not None
     assert config.wake_word.enabled is False
     assert config.wake_word.engine == "openwakeword"
-    assert config.wake_word.model == "hey_jarvis"
-    assert config.wake_word.threshold == 0.5
+    assert config.wake_word.model == DEFAULT_BETTY_WAKE_MODEL
+    assert config.wake_word.threshold == 0.8
     assert config.wake_word.cooldown_seconds == 2.0
     assert config.wake_word.command_record_seconds == 3.0
 

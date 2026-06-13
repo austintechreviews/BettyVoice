@@ -22,6 +22,11 @@ def test_contains_phrase_substring():
     assert contains_wake_phrase("hey betty's", "betty")
 
 
+def test_does_not_match_arbitrary_substrings():
+    assert not contains_wake_phrase("alphabetty speed", "betty")
+    assert not contains_wake_phrase("bettyboop speed", "betty")
+
+
 def test_contains_variants():
     assert contains_wake_phrase("bettie", "betty")
     assert contains_wake_phrase("betti", "betty")

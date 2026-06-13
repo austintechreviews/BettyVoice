@@ -11,7 +11,9 @@ def test_strip_wake_word():
 
 def test_normalize_speed():
     assert normalize("speed") == "speed"
+    assert normalize("airspeed") == "speed"
     assert normalize("what's my speed") == "speed"
+    assert normalize("what is my airspeed") == "speed"
     assert normalize("how fast am i going") == "speed"
     assert normalize("how fast") == "speed"
 
@@ -33,6 +35,7 @@ def test_normalize_fuel():
     assert normalize("fuel") == "fuel"
     assert normalize("how much fuel") == "fuel"
     assert normalize("what's my fuel") == "fuel"
+    assert normalize("state fuel") == "fuel"
     assert normalize("bingo fuel") == "fuel"
 
 
@@ -46,6 +49,8 @@ def test_normalize_weapon():
     assert normalize("weapon") == "weapon"
     assert normalize("what weapon") == "weapon"
     assert normalize("what am i carrying") == "weapon"
+    assert normalize("stores") == "weapon"
+    assert normalize("master arm") == "weapon"
 
 
 def test_normalize_countermeasures():
@@ -57,11 +62,13 @@ def test_normalize_countermeasures():
 def test_normalize_warnings():
     assert normalize("warnings") == "warnings"
     assert normalize("any warnings") == "warnings"
+    assert normalize("any threats") == "warnings"
 
 
 def test_normalize_gear():
     assert normalize("gear") == "gear"
     assert normalize("landing gear") == "gear"
+    assert normalize("gear status") == "gear"
 
 
 def test_normalize_apu():
@@ -72,6 +79,7 @@ def test_normalize_apu():
 def test_normalize_status():
     assert normalize("status") == "status"
     assert normalize("system status") == "status"
+    assert normalize("say status") == "status"
     assert normalize("how are we doing") == "status"
     assert normalize("what's my status") == "status"
 

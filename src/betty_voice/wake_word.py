@@ -3,11 +3,16 @@
 from __future__ import annotations
 
 import logging
+import os
+from pathlib import Path
 import threading
 import time
 from typing import Callable, Optional
 
+from .config import WakeWordConfig
+
 logger = logging.getLogger(__name__)
+_DEFAULT_WAKE_WORD = WakeWordConfig()
 
 
 class WakeWordListener:
@@ -23,8 +28,8 @@ class WakeWordListener:
 
     def __init__(
         self,
-        model: str = "hey_jarvis",
-        threshold: float = 0.5,
+        model: str = _DEFAULT_WAKE_WORD.model,
+        threshold: float = _DEFAULT_WAKE_WORD.threshold,
         cooldown_seconds: float = 2.0,
         on_detected: Optional[Callable[[], None]] = None,
     ):
@@ -40,6 +45,10 @@ class WakeWordListener:
     @property
     def is_running(self) -> bool:
         return self._running
+
+    @property
+    def prediction_keys(self) -> list[str]:
+        return _prediction_keys(self._model_name)
 
     def start(self) -> None:
         if self._running:
@@ -87,15 +96,14 @@ class WakeWordListener:
             )
 
     def _run(self) -> None:
-        import numpy as np
         import sounddevice as sd
-        import openwakeword
+        from openwakeword.model import Model
 
         SAMPLE_RATE = 16000
         CHUNK_SIZE = 1280
 
         try:
-            model = openwakeword.Model()
+            model = Model(**_model_init_kwargs(self._model_name))
         except Exception as e:
             print(f"[wakeword] Failed to load model: {e}")
             self._running = False
@@ -117,7 +125,6 @@ class WakeWordListener:
         chunk_size: int,
     ) -> None:
         import sounddevice as sd
-        import numpy as np
 
         with sd.InputStream(
             samplerate=rate,
@@ -129,7 +136,9 @@ class WakeWordListener:
                 chunk, _ = stream.read(chunk_size)
                 chunk_flat = chunk.flatten()
                 prediction = model.predict(chunk_flat)
-                score = prediction.get(self._model_name, 0.0)
+                score = max(
+                    prediction.get(key, 0.0) for key in self.prediction_keys
+                )
                 if score >= self._threshold:
                     now = time.monotonic()
                     if now - self._last_detection >= self._cooldown:
@@ -138,3 +147,22 @@ class WakeWordListener:
 
         if not self._stop_event.is_set() and self._on_detected:
             self._on_detected()
+
+
+def _model_init_kwargs(model_name: str) -> dict:
+    if _is_model_path(model_name):
+        return {"wakeword_models": [model_name]}
+    return {"wakeword_models": [model_name]}
+
+
+def _prediction_keys(model_name: str) -> list[str]:
+    keys = [model_name]
+    if _is_model_path(model_name):
+        stem = Path(model_name).stem
+        keys.extend([stem, stem.replace("_", " "), os.path.basename(model_name)])
+    return list(dict.fromkeys(keys))
+
+
+def _is_model_path(model_name: str) -> bool:
+    suffix = Path(model_name).suffix.lower()
+    return suffix in {".onnx", ".tflite"} or os.path.sep in model_name

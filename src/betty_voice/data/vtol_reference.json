@@ -1,0 +1,275 @@
+{
+  "metadata": {
+    "version": "2026-06-13",
+    "stance": "Game helper reference for VTOL VR. Values marked heuristic are Betty estimates for routing, comparison, and solver use, not official flight manual data.",
+    "primary_sources": [
+      "https://store.steampowered.com/app/667970/VTOL_VR/",
+      "https://store.steampowered.com/dlc/667970/VTOL_VR/",
+      "https://vtolvr.wiki.gg/",
+      "https://vtolvr.wiki.gg/wiki/Flight_Manuals",
+      "https://vtolvr.wiki.gg/wiki/Weapon_Guidance"
+    ]
+  },
+  "aircraft": [
+    {
+      "id": "fa26b",
+      "name": "F/A-26B",
+      "aliases": ["fa-26b", "fa26", "fa26b", "wasp"],
+      "role": ["air superiority", "strike", "sead"],
+      "crew": 1,
+      "hardpoints": {"weapons": 13, "utility": 2},
+      "gross_weight_kg": 25964,
+      "length_m": 20.8,
+      "wingspan_m": 18.9,
+      "height_m_gears_down": 6.74,
+      "height_m_gears_up": 5.25,
+      "vtol": false,
+      "notes": [
+        "Best general-purpose non-stealth fighter/attack platform.",
+        "Large hardpoint count makes it the default recommendation for heavy A2A or multirole loadouts.",
+        "Conformal fuel tanks add fuel endurance but add mass and should be traded against maneuver performance."
+      ],
+      "sources": [
+        "https://vtolvr.wiki.gg/wiki/F/A-26B",
+        "https://vtolvr.wiki.gg/wiki/F/A-26B/Hardpoints",
+        "https://vtolvr.wiki.gg/wiki/Conformal_Fuel_Tanks"
+      ]
+    },
+    {
+      "id": "f45a",
+      "name": "F-45A",
+      "aliases": ["f-45", "f45", "f45a", "ghost"],
+      "role": ["stealth", "multirole", "stovl"],
+      "gross_weight_kg": 21113,
+      "length_m": 14.8,
+      "wingspan_m": 10.9,
+      "vtol": true,
+      "notes": [
+        "Strong for stealthy sensor-led engagements.",
+        "External hardpoints increase load but reduce stealth."
+      ],
+      "sources": ["https://vtolvr.wiki.gg/wiki/F-45A"]
+    },
+    {
+      "id": "av42c",
+      "name": "AV-42C",
+      "aliases": ["av-42", "av42", "av42c", "kestrel"],
+      "role": ["tilt-jet", "transport", "attack", "vtol"],
+      "gross_weight_kg": 10288,
+      "length_m": 15.8,
+      "wingspan_m": 14.1,
+      "vtol": true,
+      "notes": ["Useful for VTOL transport/attack tasks, fewer weapon slots than the F/A-26B."],
+      "sources": ["https://vtolvr.wiki.gg/wiki/AV-42C"]
+    },
+    {
+      "id": "t55",
+      "name": "T-55 Tyro",
+      "aliases": ["t-55", "t55", "tyro"],
+      "role": ["trainer", "combat trainer", "two seat"],
+      "gross_weight_kg": 9158,
+      "length_m": 13.4,
+      "wingspan_m": 10.4,
+      "vtol": false,
+      "notes": ["Two-seat trainer that can carry many weapon and sensor types."],
+      "sources": ["https://vtolvr.wiki.gg/wiki/T-55", "https://store.steampowered.com/dlc/667970/VTOL_VR/"]
+    },
+    {
+      "id": "ah94",
+      "name": "AH-94",
+      "aliases": ["ah-94", "ah94", "helicopter"],
+      "role": ["attack helicopter", "two seat"],
+      "gross_weight_kg": 6731,
+      "length_m": 17.1,
+      "main_rotor_diameter_m": 15.4,
+      "vtol": true,
+      "notes": ["Attack helicopter focused on hovering, sensors, and close target engagement."],
+      "sources": ["https://vtolvr.wiki.gg/wiki/AH-94", "https://store.steampowered.com/dlc/667970/VTOL_VR/"]
+    },
+    {
+      "id": "ef24g",
+      "name": "EF-24G Mischief",
+      "aliases": ["ef-24", "ef24", "ef24g", "mischief"],
+      "role": ["electronic warfare", "two seat", "variable sweep"],
+      "gross_weight_kg": 25560,
+      "length_m": 20.7,
+      "wingspan_m_swept_forward": 21.6,
+      "wingspan_m_swept_back": 12.3,
+      "notes": ["Specialized EW platform with sensors and ECM pods for finding, targeting, and disrupting emissions."],
+      "sources": ["https://vtolvr.wiki.gg/wiki/EF-24G", "https://store.steampowered.com/dlc/667970/VTOL_VR/"]
+    }
+  ],
+  "weapons": [
+    {"id": "aim120c", "name": "AIM-120C", "aliases": ["aim-120", "aim120", "amraam"], "domain": "a2a", "guidance": "active radar homing", "range_band": "medium", "munition_weight_kg": 152, "sources": ["https://vtolvr.wiki.gg/wiki/AIM-120C"]},
+    {"id": "aim120d", "name": "AIM-120D", "aliases": ["aim-120d", "aim120d"], "domain": "a2a", "guidance": "active radar homing", "range_band": "medium", "munition_weight_kg": 152, "sources": ["https://vtolvr.wiki.gg/wiki/AIM-120D"]},
+    {"id": "aim7", "name": "AIM-7", "aliases": ["aim-7", "aim7", "sparrow"], "domain": "a2a", "guidance": "semi-active radar homing", "range_band": "low-medium", "munition_weight_kg": 152, "sources": ["https://vtolvr.wiki.gg/wiki/AIM-7"]},
+    {"id": "aim9", "name": "AIM-9", "aliases": ["aim-9", "aim9", "sidewinder"], "domain": "a2a", "guidance": "infrared", "range_band": "short", "munition_weight_kg": 85.3, "sources": ["https://vtolvr.wiki.gg/wiki/AIM-9"]},
+    {"id": "airs_t", "name": "AIRS-T", "aliases": ["airs-t", "airst", "airs t"], "domain": "a2a", "guidance": "infrared all-aspect", "range_band": "short-medium", "munition_weight_kg": 88, "sources": ["https://vtolvr.wiki.gg/wiki/AIRS-T"]},
+    {"id": "aim54", "name": "AIM-54", "aliases": ["aim-54", "aim54", "phoenix"], "domain": "a2a", "guidance": "active radar homing", "range_band": "medium-long", "munition_weight_kg": 450, "sources": ["https://vtolvr.wiki.gg/wiki/AIM-54"]},
+    {"id": "agm65", "name": "AGM-65", "aliases": ["agm-65", "agm65", "maverick"], "domain": "a2g", "guidance": "optical fire-and-forget", "range_band": "medium", "sources": ["https://vtolvr.wiki.gg/wiki/AGM-65"]},
+    {"id": "agm88", "name": "AGM-88", "aliases": ["agm-88", "agm88", "harm"], "domain": "a2g", "guidance": "passive radar homing", "range_band": "medium-long", "munition_weight_kg": 355, "sources": ["https://vtolvr.wiki.gg/wiki/AGM-88"]},
+    {"id": "gbu38", "name": "GBU-38", "aliases": ["gbu-38", "gbu38", "jdams"], "domain": "a2g", "guidance": "GPS guidance", "range_band": "glide", "munition_weight_kg": 232, "sources": ["https://vtolvr.wiki.gg/wiki/GBU-38"]},
+    {"id": "mk82", "name": "Mk-82", "aliases": ["mk-82", "mk82"], "domain": "a2g", "guidance": "none", "range_band": "ballistic", "munition_weight_kg": 227, "sources": ["https://vtolvr.wiki.gg/wiki/Mk-82"]}
+  ],
+  "loadout_recommendations": [
+    {
+      "id": "fa26b_a2a_balanced",
+      "aircraft_id": "fa26b",
+      "mission": "a2a",
+      "name": "Balanced F/A-26B A2A CAP",
+      "stores": [
+        {"weapon": "AIM-120C or AIM-120D", "count": 6, "purpose": "BVR shots and pressure"},
+        {"weapon": "AIRS-T or AIM-9+", "count": 2, "purpose": "close-in all-aspect/self-defense shots"},
+        {"weapon": "External fuel tanks or CFT", "count": 1, "purpose": "endurance if the sortie is long"},
+        {"weapon": "Gun", "count": 1, "purpose": "last-ditch close combat"}
+      ],
+      "tradeoffs": [
+        "Good default for PvE CAP and intercepts.",
+        "Drop tanks/CFT increase endurance but reduce acceleration and turn performance.",
+        "If expecting merge-heavy fighting, trade two radar missiles for two extra IR missiles."
+      ]
+    },
+    {
+      "id": "fa26b_a2a_light",
+      "aircraft_id": "fa26b",
+      "mission": "a2a",
+      "name": "Light F/A-26B fighter sweep",
+      "stores": [
+        {"weapon": "AIM-120C or AIM-120D", "count": 4, "purpose": "BVR"},
+        {"weapon": "AIRS-T", "count": 4, "purpose": "merge and high off-boresight shots"},
+        {"weapon": "Gun", "count": 1, "purpose": "close combat"}
+      ],
+      "tradeoffs": [
+        "Better acceleration and agility than a heavy missile truck.",
+        "Less total BVR magazine depth."
+      ]
+    },
+    {
+      "id": "fa26b_multirole_sead",
+      "aircraft_id": "fa26b",
+      "mission": "multirole sead",
+      "name": "F/A-26B self-escort SEAD",
+      "stores": [
+        {"weapon": "AIM-120C", "count": 4, "purpose": "self escort"},
+        {"weapon": "AIRS-T or AIM-9+", "count": 2, "purpose": "defensive WVR"},
+        {"weapon": "AGM-88", "count": 2, "purpose": "radar emitters"},
+        {"weapon": "TGP", "count": 1, "purpose": "target ID and laser/sensor work if needed"}
+      ],
+      "tradeoffs": [
+        "Good when you may need to fight through air threats before attacking SAM radars.",
+        "Less pure A2A endurance than a CAP loadout."
+      ]
+    }
+  ],
+  "performance_graphs": [
+    {
+      "id": "fa26b_stores_drag_heuristic",
+      "aircraft_id": "fa26b",
+      "title": "F/A-26B stores drag / agility heuristic",
+      "kind": "heuristic_curve",
+      "x_axis": {"name": "drag_index", "unit": "normalized", "meaning": "0 clean, 1 light A2A, 2 balanced A2A, 3 heavy multirole"},
+      "series": [
+        {"name": "acceleration_score", "unit": "0_to_1", "points": [[0, 1.0], [1, 0.86], [2, 0.72], [3, 0.55]]},
+        {"name": "sustained_turn_score", "unit": "0_to_1", "points": [[0, 1.0], [1, 0.9], [2, 0.78], [3, 0.62]]},
+        {"name": "endurance_score_with_tanks", "unit": "0_to_1", "points": [[0, 0.52], [1, 0.58], [2, 0.82], [3, 0.9]]}
+      ],
+      "solver_note": "Linear interpolation is acceptable between points. Use for relative loadout comparison only.",
+      "source_quality": "betty_heuristic"
+    },
+    {
+      "id": "a2a_range_employment_heuristic",
+      "title": "A2A missile employment quality by range band",
+      "kind": "heuristic_curve",
+      "x_axis": {"name": "range_band_index", "unit": "normalized", "meaning": "0 merge, 1 short, 2 medium, 3 medium-long"},
+      "series": [
+        {"weapon_id": "airs_t", "name": "AIRS-T employment_score", "points": [[0, 0.95], [1, 0.9], [2, 0.42], [3, 0.12]]},
+        {"weapon_id": "aim9", "name": "AIM-9 employment_score", "points": [[0, 0.82], [1, 0.8], [2, 0.28], [3, 0.08]]},
+        {"weapon_id": "aim120c", "name": "AIM-120C employment_score", "points": [[0, 0.25], [1, 0.55], [2, 0.88], [3, 0.52]]},
+        {"weapon_id": "aim54", "name": "AIM-54 employment_score", "points": [[0, 0.05], [1, 0.25], [2, 0.65], [3, 0.88]]}
+      ],
+      "solver_note": "This is a doctrine helper, not a probability-of-kill calculator. Favor radar missiles at medium/BVR, IR missiles near merge.",
+      "source_quality": "betty_heuristic"
+    }
+  ],
+  "tactics": [
+    {
+      "id": "radar_missile_defense",
+      "topic": "missile evasion",
+      "summary": "Against radar missiles, combine geometry, terrain/clutter, and chaff. Notching places the threat near your 3 or 9 o'clock to reduce closure; chaff is most useful while notching.",
+      "sources": ["https://vtolvr.wiki.gg/wiki/Missile_Evasion", "https://vtolvr.wiki.gg/wiki/Tips_%26_Tricks"]
+    },
+    {
+      "id": "a2a_launch_discipline",
+      "topic": "A2A employment",
+      "summary": "Use the aircraft launch-zone cues when available. Betty should remind the pilot to check DLZ/no-escape cues rather than inventing exact ranges from incomplete telemetry.",
+      "sources": ["https://vtolvr.wiki.gg/wiki/Weapon_Guidance"]
+    }
+  ],
+  "lessons": [
+    {
+      "id": "missile_evasion_radar",
+      "topic": "radar missile evasion",
+      "aliases": ["missile evasion", "notching", "evade missile", "chaff"],
+      "title": "Radar missile evasion brief",
+      "summary": "Defeat radar missiles with geometry first, then countermeasures. Chaff helps most when you are notching or using terrain/clutter.",
+      "steps": [
+        "Put the threat near your 3 or 9 o'clock to reduce closure and enter the notch.",
+        "Use chaff in short bursts while holding the notch; do not rely on chaff while flying straight at or away from the missile.",
+        "Drag or descend if you need time and space, but preserve enough speed to maneuver.",
+        "If terrain is available, mask behind it instead of trying to out-turn a missile in the open.",
+        "After the warning drops, recommit only when you have energy and situational awareness."
+      ],
+      "sources": ["https://vtolvr.wiki.gg/wiki/Missile_Evasion", "https://vtolvr.wiki.gg/wiki/Tips_%26_Tricks"]
+    },
+    {
+      "id": "a2a_bvr",
+      "topic": "BVR air-to-air",
+      "aliases": ["bvr", "aim 120", "amraam", "fox three", "air to air"],
+      "title": "BVR air-to-air brief",
+      "summary": "Use radar missiles to create pressure before the merge, but let the in-game launch-zone cues drive exact timing.",
+      "steps": [
+        "Build altitude and speed before committing so the missile leaves with energy.",
+        "Sort targets on radar, confirm hostile or mission context, and avoid wasting shots on poor aspect targets.",
+        "Fire AIM-120 class weapons when the DLZ supports the shot; no-escape cues are better than fixed range rules.",
+        "Support the missile long enough to matter, then crank or defend instead of flying straight into return fire.",
+        "Keep IR missiles for the merge or defensive snapshots."
+      ],
+      "sources": ["https://vtolvr.wiki.gg/wiki/Weapon_Guidance", "https://vtolvr.wiki.gg/wiki/AIM-120C"]
+    },
+    {
+      "id": "fa26b_turning",
+      "topic": "F/A-26B turning",
+      "aliases": ["turning", "optimal turn", "corner speed", "dogfight", "rate fight"],
+      "title": "F/A-26B turning brief",
+      "summary": "The F/A-26B likes an energy-managed rate fight more than a slow high-AoA wallow, especially when carrying missiles and fuel.",
+      "steps": [
+        "Enter the turn fast enough to sustain energy; Betty's solver gives a current target speed from aircraft, fuel, and stores.",
+        "For sustained rate, keep flaps up or auto and avoid carrying landing-flap drag through the fight.",
+        "If very slow and you need nose authority for a snapshot, use extra flap briefly, then clean up as speed returns.",
+        "Watch AoA and buffet; if the jet is mushy, unload slightly and let it accelerate.",
+        "Jettison draggy tanks or heavy stores only when the mission and rules allow it."
+      ],
+      "sources": ["https://vtolvr.wiki.gg/wiki/F/A-26B", "https://vtolvr.wiki.gg/wiki/Jettison_%28Mechanic%29"]
+    },
+    {
+      "id": "carrier_case1",
+      "topic": "Case I carrier recovery",
+      "aliases": ["case 1", "carrier landing", "call the ball", "carrier recovery"],
+      "title": "Case I carrier recovery brief",
+      "summary": "Fly the pattern deliberately: configure, stabilize, scan lineup and glideslope, and correct early rather than chasing late.",
+      "steps": [
+        "Arrive with enough spacing and configure before the groove: gear down, landing flaps, hook as required.",
+        "Fly a stable downwind and final turn; do not arrive in the groove fast and dirty.",
+        "On final, scan lineup, angle, and descent rate; small corrections beat large last-second pulls.",
+        "Use power for glideslope and attitude for AoA-like speed control in the usual carrier pattern rhythm.",
+        "If unstable, go around instead of forcing the trap."
+      ],
+      "sources": ["https://vtolvr.wiki.gg/wiki/Flight_Manuals"]
+    }
+  ],
+  "tutorial_sources": [
+    {"name": "In-game training scenarios/tutorials", "source": "https://store.steampowered.com/app/667970/VTOL_VR/"},
+    {"name": "Community flight manuals", "source": "https://vtolvr.wiki.gg/wiki/Flight_Manuals"},
+    {"name": "VTOL VR Tutorials YouTube channel", "source": "https://www.youtube.com/c/VTOLVRTutorials/about"}
+  ]
+}

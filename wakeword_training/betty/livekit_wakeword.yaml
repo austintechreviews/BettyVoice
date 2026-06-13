@@ -1,0 +1,13 @@
+model_name: betty
+target_phrases:
+  - "betty"
+  - "hey betty"
+  - "okay betty"
+  - "betty speed"
+  - "betty status"
+  - "betty altitude"
+n_samples: 10000
+model:
+  model_type: conv_attention
+  model_size: small
+steps: 50000

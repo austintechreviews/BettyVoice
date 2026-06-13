@@ -8,3 +8,16 @@ dist/
 build/
 .venv/
 venv/
+
+# Local wake-word training caches and generated audio. Keep configs, manifests,
+# trained compact models, and eval summaries under wakeword_training/.
+wakeword_training/livekit_data/
+wakeword_training/betty/clips_say/
+wakeword_training/betty/clips_say_augmented/
+wakeword_training/livekit_output/betty/background_test/
+wakeword_training/livekit_output/betty/background_train/
+wakeword_training/livekit_output/betty/negative_test/
+wakeword_training/livekit_output/betty/negative_train/
+wakeword_training/livekit_output/betty/positive_test/
+wakeword_training/livekit_output/betty/positive_train/
+wakeword_training/livekit_output/betty/*_features_*.npy

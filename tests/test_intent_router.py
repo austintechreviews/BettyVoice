@@ -141,6 +141,13 @@ def test_unknown():
     assert "Unknown" in result
 
 
+def test_knowledge_fallback_loadout():
+    router = IntentRouter(make_online_store())
+    result = router.handle("recommend A2A loadout for FA-26B")
+    assert "AIM-120" in result
+    assert "F/A-26B" in result
+
+
 def test_offline():
     store = StateStore()
     router = IntentRouter(store)

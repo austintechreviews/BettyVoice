@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import re
-from typing import Optional
 
 PHRASE_MAP: dict[str, str] = {
     "what's my speed": "speed",
@@ -11,6 +10,9 @@ PHRASE_MAP: dict[str, str] = {
     "how fast am i going": "speed",
     "how fast": "speed",
     "speed": "speed",
+    "airspeed": "speed",
+    "what's my airspeed": "speed",
+    "what is my airspeed": "speed",
     "altitude": "altitude",
     "what's my altitude": "altitude",
     "what is my altitude": "altitude",
@@ -25,6 +27,7 @@ PHRASE_MAP: dict[str, str] = {
     "what's my fuel": "fuel",
     "what is my fuel": "fuel",
     "fuel remaining": "fuel",
+    "state fuel": "fuel",
     "bingo fuel": "fuel",
     "engines": "engines",
     "engine status": "engines",
@@ -33,13 +36,16 @@ PHRASE_MAP: dict[str, str] = {
     "auxiliary power": "apu",
     "gear": "gear",
     "landing gear": "gear",
+    "gear status": "gear",
     "weapon": "weapon",
     "what weapon": "weapon",
     "what's my weapon": "weapon",
     "what is my weapon": "weapon",
     "what am i carrying": "weapon",
-    "what am i carrying ": "weapon",
     "weapons": "weapon",
+    "stores": "weapon",
+    "what stores": "weapon",
+    "master arm": "weapon",
     "countermeasures": "countermeasures",
     "counter measures": "countermeasures",
     "flares": "countermeasures",
@@ -48,22 +54,25 @@ PHRASE_MAP: dict[str, str] = {
     "warning": "warnings",
     "any warnings": "warnings",
     "are there any warnings": "warnings",
+    "any threats": "warnings",
+    "threats": "warnings",
     "status": "status",
     "system status": "status",
+    "say status": "status",
     "how are we doing": "status",
     "what's my status": "status",
     "what is my status": "status",
 }
 
-_WAKE_WORDS = {"betty", "betty"}
+_WAKE_WORDS = {"betty"}
 
-_STT_MODEL: Optional[object] = None
+_STT_MODELS: dict[tuple[str, str, str], object] = {}
 
 
 def _lazy_load_model(model_name: str, device: str, compute_type: str):
-    global _STT_MODEL
-    if _STT_MODEL is not None:
-        return _STT_MODEL
+    key = (model_name, device, compute_type)
+    if key in _STT_MODELS:
+        return _STT_MODELS[key]
     from faster_whisper import WhisperModel
 
     kw: dict = {}
@@ -71,8 +80,9 @@ def _lazy_load_model(model_name: str, device: str, compute_type: str):
         kw["device"] = device
     if compute_type != "auto":
         kw["compute_type"] = compute_type
-    _STT_MODEL = WhisperModel(model_name, **kw)
-    return _STT_MODEL
+    model = WhisperModel(model_name, **kw)
+    _STT_MODELS[key] = model
+    return model
 
 
 def _check_deps() -> None:
@@ -162,25 +172,20 @@ _PHRASE_VARIANTS = {"betty", "bettie", "betti"}
 def contains_wake_phrase(text: str, phrase: str = "betty") -> bool:
     """Check whether *text* contains the wake *phrase* (case-insensitive).
 
-    Handles common Whisper transcription variants and substrings
-    (e.g. ``"betty's"`` matches ``"betty"``).
+    Handles common Whisper transcription variants and possessives
+    (e.g. ``"betty's"`` matches ``"betty"``) without matching arbitrary
+    substrings such as ``"alphabetty"``.
     """
     lower = re.sub(r"[^a-z0-9\s]", "", text.lower()).strip()
     words = lower.split()
     phrase_lower = phrase.lower()
 
-    if phrase_lower in words:
+    if any(_wake_word_matches(word, phrase_lower) for word in words):
         return True
-    for word in words:
-        if phrase_lower in word:
-            return True
 
     for variant in _PHRASE_VARIANTS:
-        if variant in words:
+        if any(_wake_word_matches(word, variant) for word in words):
             return True
-        for word in words:
-            if variant in word:
-                return True
 
     return False
 
@@ -204,6 +209,10 @@ def strip_wake_phrases(text: str) -> str:
 
 def _clean_for_match(text: str) -> str:
     return re.sub(r"[^a-z0-9\s]", "", text.lower()).strip()
+
+
+def _wake_word_matches(word: str, phrase: str) -> bool:
+    return word == phrase or word == f"{phrase}s"
 
 
 def _map_prefix_end(original: str, prefix: str) -> int:

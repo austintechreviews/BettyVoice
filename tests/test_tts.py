@@ -3,6 +3,8 @@
 from betty_voice.config import TTSConfig
 from betty_voice.tts import (
     NullTTS,
+    PiperTTS,
+    QueuedTTS,
     _shorten_for_speech,
     get_tts,
     respond,
@@ -43,6 +45,82 @@ class TestGetTTS:
         cfg = TTSConfig(enabled=True)
         tts = get_tts(cfg)
         assert isinstance(tts, NullTTS)
+
+
+class TestPiperTTS:
+    def test_piper_failure_is_reported(self, monkeypatch, capsys):
+        class Result:
+            returncode = 2
+            stderr = b"bad voice"
+
+        tts = object.__new__(PiperTTS)
+        tts._available = True
+        tts._cfg = TTSConfig()
+        tts._piper_path = "piper"
+        tts._model_path = "model.onnx"
+        tts._config_path = None
+        tts._player = "afplay"
+
+        monkeypatch.setattr("subprocess.run", lambda *args, **kwargs: Result())
+
+        tts.speak("hello")
+
+        captured = capsys.readouterr()
+        assert "Piper failed with exit code 2" in captured.out
+        assert "bad voice" in captured.out
+
+    def test_piper_uses_length_scale(self, monkeypatch):
+        class PiperResult:
+            returncode = 0
+            stderr = b""
+
+        class PlayerResult:
+            returncode = 0
+            stderr = b""
+
+        calls = []
+        tts = object.__new__(PiperTTS)
+        tts._available = True
+        tts._cfg = TTSConfig(length_scale=0.85)
+        tts._piper_path = "piper"
+        tts._model_path = "model.onnx"
+        tts._config_path = None
+        tts._player = "afplay"
+
+        def fake_run(cmd, **kwargs):
+            calls.append(cmd)
+            return PiperResult() if cmd[0] == "piper" else PlayerResult()
+
+        monkeypatch.setattr("subprocess.run", fake_run)
+        monkeypatch.setattr("os.unlink", lambda path: None)
+
+        tts.speak("hello")
+
+        assert "--length-scale" in calls[0]
+        assert calls[0][calls[0].index("--length-scale") + 1] == "0.85"
+
+
+class TestQueuedTTS:
+    def test_queued_tts_speaks_in_order(self):
+        class FakeBackend:
+            def __init__(self):
+                self.spoken = []
+                self.closed = False
+
+            def speak(self, text):
+                self.spoken.append(text)
+
+            def close(self):
+                self.closed = True
+
+        backend = FakeBackend()
+        tts = QueuedTTS(backend)
+        tts.speak("one")
+        tts.speak("two")
+        tts.close()
+
+        assert backend.spoken == ["one", "two"]
+        assert backend.closed is True
 
 
 class TestRespond:
